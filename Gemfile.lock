@@ -247,6 +247,9 @@ GEM
       rdoc (~> 4.0)
     sexp_processor (4.7.0)
     shellany (0.0.1)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (3.6.2)
@@ -304,6 +307,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (>= 3.2)
   sdoc (~> 0.4.0)
+  simple_form
   spring
   therubyracer
   turbolinks

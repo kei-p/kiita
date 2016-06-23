@@ -15,6 +15,7 @@ gem 'haml-rails'
 gem 'kaminari'
 gem 'devise'
 gem 'dotenv-rails'
+gem 'simple_form'
 
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '>= 3.2'
