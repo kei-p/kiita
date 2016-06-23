@@ -24,6 +24,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'guard-livereload'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -31,3 +32,7 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'database_cleaner'
+  gem 'capybara'
+end
