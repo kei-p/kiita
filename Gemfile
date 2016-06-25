@@ -21,6 +21,10 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '>= 3.2'
 gem 'autoprefixer-rails'
 
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'settingslogic'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
