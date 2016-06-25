@@ -1,3 +1,23 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$primary-color: green;
+
+.logo {
+  padding: 5px 20px;
+  background-color: $primary-color;
+  color: white;
+  display: inline-block;
+  font-size: 3.0em;
+  letter-spacing: 0.1em;
+}
+
+.loginForm {
+  padding: 20px;
+}
+
+.landingCatch {
+  font-size: 2.0em;
+  margin: 100px 0;
+}
