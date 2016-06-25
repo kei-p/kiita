@@ -1,5 +1,12 @@
-= simple_form_for(:user, url: new_user_session_path) do |f|
-  = f.input :email
-  = f.input :password
-  = f.input :remember_me, as: :boolean
-  = f.submit "Log in"
+.container
+  .row
+    .col-sm-7
+      %span.logo Kiita
+      %h1.landingCatch
+        Kiitaは、プログラマのための技術情報共有サービスです。
+    .col-sm-5
+      = simple_form_for(:user, url: new_user_session_path, html: { class: 'loginForm' }) do |f|
+        = f.input :email
+        = f.input :password
+        = f.input :remember_me, as: :boolean
+        = f.submit "Log in", class: 'btn btn-primary'
