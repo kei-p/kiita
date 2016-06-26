@@ -11,4 +11,8 @@
         = f.input :remember_me, as: :boolean
         = f.submit "Log in", class: 'btn btn-primary'
 
-      = link_to "Twitterでログイン", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
+    %ul
+      %li
+        = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
+      %li
+        = link_to "メールアドレスで新規登録", new_user_registration_path, class: 'btn btn-default'
