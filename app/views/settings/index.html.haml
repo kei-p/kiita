@@ -5,4 +5,4 @@
     = f.input :name
     = f.submit "更新", class: 'btn btn-primary'
 
-  = link_to_if(current_user.oauthorized?, "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default') { 'Twitterで連携済みです'  }
+  = link_to_unless(current_user.oauthorized?, "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default') { 'Twitterで連携済みです'  }

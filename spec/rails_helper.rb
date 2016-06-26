@@ -11,6 +11,16 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.default_host = 'http://example.org'
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:twitter,
+  uid: 'tw_12345',
+  info: {
+    name: 'tw_name'
+  }
+)
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
@@ -20,6 +30,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include FactoryGirl::Syntax::Methods
+  config.include FeatureHelper, type: :feature
 
   config.before(:suite) do
     if config.use_transactional_fixtures?
