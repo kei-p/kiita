@@ -1,26 +1,15 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: true
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  - if resource.password_required?
-    .field
-      = f.label :password
-      - if @minimum_password_length
-        %em
-          (#{@minimum_password_length} characters minimum)
-      %br/
-      = f.password_field :password, autocomplete: "off"
-    .field
-      = f.label :password_confirmation
-      %br/
-      = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.container
+  %h2 Sign up
+  = simple_form_for(resource, url: user_registration_path) do |f|
+    = f.input :name
+    = f.input :email
+    - if resource.password_required?
+      = f.input :password
+      = f.input :password_confirmation
+    = f.submit "Sign up", class: 'btn btn-primary'
+
+  %ul
+    %li
+      = link_to "Twitterで新規登録", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
+
+  = link_to "Back", :back
