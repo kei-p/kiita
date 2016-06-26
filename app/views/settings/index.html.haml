@@ -1,0 +1,8 @@
+.container
+  %h1 設定
+
+  = simple_form_for(current_user, url: settings_path, method: :put) do |f|
+    = f.input :name
+    = f.submit "更新", class: 'btn btn-primary'
+
+  = link_to_if(current_user.oauthorized?, "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default') { 'Twitterで連携済みです'  }

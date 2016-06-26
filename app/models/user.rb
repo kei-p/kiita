@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter]
 
+  validates :name, presence: true
+
   def self.find_or_initialize_by_oauth(oauth)
     find_or_initialize_by(
       provider: oauth.provider,
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
     )
   end
 
-def self.new_with_session(params, session)
+  def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.twitter_data"]
         user.provider = data["provider"]
@@ -22,7 +24,16 @@ def self.new_with_session(params, session)
     end
   end
 
+  def set_oauth(oauth)
+    self.provider = oauth.provider
+    self.uid = oauth.uid
+  end
+
   def password_required?
-    provider.blank? || uid.blank?
+    new_record? && ( !oauthorized? )
+  end
+
+  def oauthorized?
+    provider.present? && uid.present?
   end
 end

@@ -9,6 +9,7 @@
   %body
     - if user_signed_in?
       %p= link_to "ログアウト", destroy_user_session_path, method: :delete
+      %p= link_to "設定", settings_path
     %p.notice= notice
     %p.alert= alert
     = yield
