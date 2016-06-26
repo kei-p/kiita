@@ -1,0 +1,12 @@
+%nav.navbar.navbar-light.bg-faded
+  .container
+    = link_to top_path, class: 'navbar-brand' do
+      Kiita
+    %ul.nav.navbar-nav.navbar-right
+      - if user_signed_in?
+        %li.nav-item= link_to "設定", settings_path
+        %li.nav-item= link_to "ログアウト", destroy_user_session_path, method: :delete
+      - else
+        %li.nav-item= link_to "ユーザー登録", new_user_registration_path
+        %li.nav-item= link_to "ログイン", new_user_session_path
+
