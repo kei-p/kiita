@@ -31,5 +31,13 @@ module Kiita
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.generators do |g|
+      g.test_framework :rspec,
+        view_specs: false,
+        routing_specs: false,
+        helper_specs: false,
+        controller_specs: false
+    end
   end
 end
