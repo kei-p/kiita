@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def unauthorized
+    message = 'Access denied.'
+    redirect_to :back, alert: message
+  rescue ActionController::RedirectBackError
+    redirect_to top_path, alert: message
+  end
+
   def after_sign_in_path_for(resource)
     top_path
   end

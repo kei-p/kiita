@@ -1,0 +1,6 @@
+ja:
+  helpers:
+    submit:
+      item:
+        create: "投稿する"
+        update: "更新する"

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter]
 
+  has_many :items
+
   validates :name, presence: true
 
   def self.find_or_initialize_by_oauth(oauth)
