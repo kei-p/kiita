@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = @user.items
+    @items = @user.items.page(params[:page]).per(10)
   end
 
   def show

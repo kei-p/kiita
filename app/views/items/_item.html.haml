@@ -1,3 +1,4 @@
 .item
   = link_to [item.user, item] do
-    = item.title
+    %p= item.user.name
+    %h4= item.title

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/index'
-
   root to: "welcome#index"
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
@@ -9,9 +7,14 @@ Rails.application.routes.draw do
   }
 
   get 'welcome', to: 'welcome#index'
-  get 'top', to: 'top#index'
+  resource 'top', only: [:show] do
+    member do
+      get 'feed'
+      get 'items'
+    end
+  end
 
-  resources :users, only: [:index] do
+  resources :users, only: [:show] do
     resources :items
   end
 
