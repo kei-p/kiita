@@ -25,6 +25,8 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'settingslogic'
 
+gem 'redcarpet'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 feature 'Items' do
-  given!(:user) do
-    create(:user, email: 'mail@example.com', password: 'password', password_confirmation: 'password')
-  end
+  given!(:user) { create(:user, :registered) }
 
   background do
     sign_in(user)
@@ -27,7 +25,24 @@ feature 'Items' do
     expect(item.body).to eq('Body')
   end
 
-  given(:item) { create(:item, user: user, title: 'Title', body: 'Body') }
+  given(:item) { create(:item, user: user, title: 'Title', body: '#Body') }
+
+  scenario '記事を閲覧する' do
+    visit user_item_path(user, item)
+
+    expect(page).to have_xpath('//h1', text: 'Body')
+    expect(page).to have_link('投稿を編集', href: edit_user_item_path(user, item))
+    expect(page).to have_link('削除', href: user_item_path(user, item))
+  end
+
+  scenario '他人の記事を閲覧する' do
+    other_user = create(:user, :registered)
+    other_user_item = create(:item, user: other_user)
+    visit user_item_path(other_user, other_user_item)
+
+    expect(page).not_to have_link('投稿を編集')
+    expect(page).not_to have_link('削除')
+  end
 
   scenario '記事を更新する' do
     visit user_item_path(user, item)
