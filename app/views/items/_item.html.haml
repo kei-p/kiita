@@ -3,5 +3,9 @@
     - user = item.user
     %span.user= link_to user.name, user
     = "が#{item.created_at.to_date}に投稿しました"
-  %h4
+  %h4.title
     = link_to item.title, user_item_path(item.user, item)
+  %ul.tags.clearfix
+    - item.tags.each do |tag|
+      %li
+        %span.tag= link_to tag.name, '#'

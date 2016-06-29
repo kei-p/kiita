@@ -35,15 +35,63 @@
 .itemShowBody {
 }
 
+.tags {
+  list-style: none;
+  padding: 0px;
+  margin: 0;
+
+  li {
+    float: left;
+    margin-left: 3px;
+
+    &:first-child { margin-left: 0px; }
+  }
+}
+
+.tag {
+  position: relative;
+  background-color: #dfdfdf;
+  text-decoration: none;
+  color: $text-color;
+  padding: 1px 0;
+  padding-right: 2px;
+  font-size: 10px;
+
+  &:first-child { margin-left: 7px; }
+
+  &:after {
+    width: 0;
+    height: 0;
+    right: 100%;
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border: solid transparent;
+    border-color: transparent;
+    border-right-color: #dfdfdf;
+    border-width: 7px;
+    top: 0px;
+  }
+
+  a:hover {
+    background-color: inherit;
+  }
+}
+
 .itemCell {
   padding: 10px 0;
   border-bottom: 1px solid $divider-color;
 
   .message {
-    font-size: 12px;
+    font-size: 10px;
 
-    .userName {
+    .user {
       font-weight: bold;
     }
+  }
+
+  .title {
+    margin-top: 2px;
+    margin-bottom: 4px;
   }
 }

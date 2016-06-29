@@ -8,6 +8,6 @@ class TopsController < ApplicationController
   end
 
   def items
-    @items = Item.all.includes(:user).page(params[:page]).per(10).order(created_at: :desc)
+    @items = Item.all.includes(:user, :tags).page(params[:page]).per(10).order(created_at: :desc)
   end
 end

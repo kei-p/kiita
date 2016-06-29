@@ -5,11 +5,10 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = @user.items.page(params[:page]).per(10)
+    @items = @user.items.includes(:user, :tags).page(params[:page]).per(10)
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def new
@@ -57,6 +56,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:title, :body)
+    params.require(:item).permit(:title, :body, :tags_name_notation)
   end
 end

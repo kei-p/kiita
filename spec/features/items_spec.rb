@@ -12,6 +12,7 @@ feature 'Items' do
 
     within('#new_item') do
       fill_in 'Title', with: 'Title'
+      fill_in 'Tags name notation', with: 'A B C'
       fill_in 'Body', with: 'Body'
 
       expect { click_on '投稿する' }.to change { Item.count }.by(1)
@@ -23,9 +24,10 @@ feature 'Items' do
     expect(item.user).to eq(user)
     expect(item.title).to eq('Title')
     expect(item.body).to eq('Body')
+    expect(item.tags.count).to eq(3)
   end
 
-  given(:item) { create(:item, user: user, title: 'Title', body: '#Body') }
+  given(:item) { create(:item, user: user, title: 'Title', body: '#Body', tags_name_notation: 'A B C') }
 
   scenario '記事を閲覧する' do
     visit user_item_path(user, item)
