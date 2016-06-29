@@ -1,0 +1,4 @@
+%ul.nav.nav-tabs
+  - user_tab_items(user).each do |tab_item|
+    - class_name = '' + ( current_page?(tab_item.path) ? 'active' : '' )
+    %li{ class: class_name }= link_to tab_item.title, tab_item.path
