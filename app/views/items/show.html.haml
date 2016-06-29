@@ -1,13 +1,19 @@
-.container
-  %p
-    %b User:
-    = @item.user.name
-  %p
-    %b Title:
-    = @item.title
-  = markdown(@item.body)
+.itemShowHeader
+  .container
+    .row
+      %h1.title
+        = @item.title
+      .message
+        - user = @item.user
+        %span.user= link_to user.name, user
+        = "が#{@item.created_at.to_date}に投稿しました"
+      - if current_user == @item.user
+        %ul.itemEditorMenus.clearfix
+          %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-primary'
+          %li= link_to '削除', user_item_path(current_user, @item), method: :delete, class: 'btn btn-danger'
 
-  - if current_user == @item.user
-    = link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-primary'
-    = link_to '削除', user_item_path(current_user, @item), method: :delete, class: 'btn btn-danger'
+
+.itemShowBody
+  .container
+    = markdown(@item.body)
 

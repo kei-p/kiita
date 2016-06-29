@@ -1,9 +1,10 @@
-= simple_form_for([current_user, @item]) do |f|
-  = f.error_notification
+.itemEditBody
+  = simple_form_for([current_user, @item]) do |f|
+    = f.error_notification
 
-  .form-inputs
-    = f.input :title
-    = f.input :body
+    .form-inputs
+      = f.input :title
+      = f.input :body, input_html: { rows: 15 }
 
-  .form-actions
-    = f.button :submit
+    .form-actions
+      = f.button :submit, class: 'btn btn-primary'

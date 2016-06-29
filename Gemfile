@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '>= 3.2'
 gem 'autoprefixer-rails'
+gem 'toastr_rails'
 
 gem 'omniauth'
 gem 'omniauth-twitter'

@@ -1,4 +1,7 @@
-.item
-  = link_to [item.user, item] do
-    %p= item.user.name
-    %h4= item.title
+.itemCell
+  .message
+    - user = item.user
+    %span.user= link_to user.name, user
+    = "が#{item.created_at.to_date}に投稿しました"
+  %h4
+    = link_to item.title, user_item_path(item.user, item)
