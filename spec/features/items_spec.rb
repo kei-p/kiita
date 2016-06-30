@@ -12,7 +12,7 @@ feature 'Items' do
 
     within('#new_item') do
       fill_in 'Title', with: 'Title'
-      fill_in 'Tags name notation', with: 'A B C'
+      fill_in 'Tags', with: 'A B C'
       fill_in 'Body', with: 'Body'
 
       expect { click_on '投稿する' }.to change { Item.count }.by(1)

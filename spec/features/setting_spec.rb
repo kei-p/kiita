@@ -32,6 +32,8 @@ feature 'Setting' do
     end.to change { user.name }.to('new_name')
 
     expect(current_path).to eq(settings_path)
+
+    pending 'jsを使ったテスト'
     expect(page).to have_content('ユーザー情報を更新しました')
   end
 end

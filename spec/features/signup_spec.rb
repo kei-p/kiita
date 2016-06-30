@@ -10,7 +10,7 @@ feature 'Signup' do
     fill_in 'Password confirmation', with: 'password'
     expect { click_on 'Sign up' }.to change { User.count }.by(1)
 
-    expect(current_path).to eq(top_path)
+    expect(current_path).to eq(feed_top_path)
     u = User.last
     expect(u.name).to eq('name')
     expect(u.email).to eq('mail@example.com')
@@ -28,7 +28,7 @@ feature 'Signup' do
     fill_in 'Email', with: 'mail@example.com'
     expect { click_on 'Sign up' }.to change { User.count }.by(1)
 
-    expect(current_path).to eq(top_path)
+    expect(current_path).to eq(feed_top_path)
     u = User.last
     expect(u.name).to eq('tw_name')
     expect(u.email).to eq('mail@example.com')
