@@ -14,8 +14,10 @@
     margin-bottom: 5px;
   }
 
-  a:visited {
-    color: white;
+  .message {
+    a {
+      color: white;
+    }
   }
 
   .itemEditorMenus {
@@ -73,7 +75,8 @@
     top: 0px;
   }
 
-  a:hover {
+  a:hover, a:visited {
+    color: $text-color;
     background-color: inherit;
   }
 }

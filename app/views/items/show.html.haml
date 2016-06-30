@@ -1,4 +1,4 @@
-.itemShowHeader
+.page-header.itemShowHeader
   .container
     .row
       %h1.title
@@ -6,7 +6,7 @@
       %ul.tags.clearfix
         - @item.tags.each do |tag|
           %li
-            %span.tag= link_to tag.name, '#'
+            %span.tag= link_to tag.name, tag
       .message
         - user = @item.user
         %span.user= link_to user.name, user

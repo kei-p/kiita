@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :items
   end
 
+  resources :tags, only: [:show]
+
   resources :settings, only: [:index] do
     collection do
       put '/', to: 'settings#update'
