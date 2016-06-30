@@ -1,0 +1,11 @@
+.page-header
+  .container
+    %h1 タグ一覧
+
+    %div
+      Kiitaに登録されているタグの一覧です。
+
+.container
+  = render @tags
+
+  = paginate @tags

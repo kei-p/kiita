@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :items
   end
 
-  resources :tags, only: [:show]
+  resources :tags, only: [:index, :show]
 
   resources :settings, only: [:index] do
     collection do

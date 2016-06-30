@@ -36,6 +36,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'factory_girl_rails'
+  gem 'bullet'
 end
 
 group :development do

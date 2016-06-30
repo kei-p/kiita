@@ -8,11 +8,27 @@ class Item < ActiveRecord::Base
   validates :title, presence: true
   validates :body, presence: true
 
-  after_initialize do
-    self.tags_name_notation ||= self.tags.map(&:name).join(' ')
+  def tags_name_notation
+    @tags_name_notation || current_tags_name_notation
   end
 
   after_save do
-    self.tags = Tag.find_or_initialize_by_name_notation(tags_name_notation) if tags_name_notation
+    unless tags_name_notation == current_tags_name_notation
+      @tmp_tags = tags.to_a
+      self.tags = Tag.find_or_initialize_by_name_notation(tags_name_notation)
+      update_tags_items_count
+    end
+  end
+
+  def update_tags_items_count
+    [@tmp_tags, tags].flatten.uniq.each do |tag|
+      tag.update(items_count: tag.items.count)
+    end
+  end
+
+  private
+
+  def current_tags_name_notation
+    tags.map(&:name).join(' ')
   end
 end
