@@ -4,6 +4,10 @@ class Item < ActiveRecord::Base
 
   has_and_belongs_to_many :tags
 
+  validates :user, presence: true
+  validates :title, presence: true
+  validates :body, presence: true
+
   after_initialize do
     self.tags_name_notation ||= self.tags.map(&:name).join(' ')
   end

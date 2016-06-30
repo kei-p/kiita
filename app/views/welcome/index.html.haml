@@ -1,9 +1,10 @@
-.container
+.container.welcomeBuffer
   .row
     .col-sm-7
-      %span.logo Kiita
-      %h1.landingCatch
+      %h1.welcomeLogo.clearfix Kiita
+      %p.landingCatch
         Kiitaは、プログラマのための技術情報共有サービスです。
+
     .col-sm-5
       = simple_form_for(:user, url: new_user_session_path, html: { class: 'loginForm' }) do |f|
         = f.input :email
@@ -11,8 +12,8 @@
         = f.input :remember_me, as: :boolean
         = f.submit "Log in", class: 'btn btn-primary'
 
-    %ul
-      %li
-        = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
-      %li
-        = link_to "メールアドレスで新規登録", new_user_registration_path, class: 'btn btn-default'
+      %ul.loginLinks
+        %li
+          = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
+        %li
+          = link_to "メールアドレスで新規登録", new_user_registration_path, class: 'btn btn-default'

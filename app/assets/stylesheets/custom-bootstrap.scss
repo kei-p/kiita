@@ -10,4 +10,18 @@
 
 .navbar {
   margin-bottom: 0px;
+  border-bottom: 1px solid $divider-color;
+}
+
+.page-header {
+  h1 {
+    margin-top: 0;
+  }
+}
+
+.navbar-toggle {
+  border-color: #777;
+  span.icon-bar {
+    background-color: #777;
+  }
 }

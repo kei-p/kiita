@@ -1,6 +1,8 @@
-.container
-  %h1 ユーザーの投稿一覧
+.page-header
+  .container
+    %h1 ユーザーの投稿一覧
 
+.container
   = render 'users/tab', user: @user
 
   - @items.each do |item|

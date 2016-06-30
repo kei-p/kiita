@@ -1,14 +1,22 @@
 %nav.navbar.navbar-light.bg-faded
-  .container
-    = link_to top_path, class: 'navbar-brand' do
-      Kiita
-    %ul.nav.navbar-nav.navbar-right
-      - if user_signed_in?
-        %li.nav-item= button_to "投稿する", new_user_item_path(current_user), class: 'navbar-btn btn btn-primary', method: :get
-        %li.nav-item= link_to "マイページ", user_path(current_user)
-        %li.nav-item= link_to "設定", settings_path
-        %li.nav-item= link_to "ログアウト", destroy_user_session_path, method: :delete
-      - else
-        %li.nav-item= link_to "ユーザー登録", new_user_registration_path
-        %li.nav-item= link_to "ログイン", new_user_session_path
+  .container-fluid
+    .navbar-header
+      = link_to top_path, class: 'navbar-brand' do
+        Kiita
+      %button.navbar-toggle.collapsed{'data-toggle' => 'collapse', 'data-target' => '#headerCollapseMenu'}
+        %span.sr-only
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+
+    #headerCollapseMenu.navbar-collapse.collapse{'aria-expanded' => false}
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li= button_to "投稿する", new_user_item_path(current_user), class: 'navbar-btn btn btn-primary', method: :get
+          %li= link_to "マイページ", user_path(current_user)
+          %li= link_to "設定", settings_path
+          %li= link_to "ログアウト", destroy_user_session_path, method: :delete
+        - else
+          %li= link_to "ユーザー登録", new_user_registration_path
+          %li= link_to "ログイン", new_user_session_path
 
