@@ -14,4 +14,4 @@
   - unless current_user.oauthorized?
     = link_to "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
   - else
-    = link_to "Twitterで連携済みです", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default', disabled: true
+    %span.btn.btn-default{disabled: true} Twitterで連携済みです
