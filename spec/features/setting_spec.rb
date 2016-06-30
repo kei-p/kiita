@@ -21,7 +21,7 @@ feature 'Setting' do
     expect(page).to have_content('Twitterで連携済みです')
   end
 
-  scenario '名前変更' do
+  scenario '名前変更', js: true do
     visit settings_path
 
     fill_in 'Name', with: 'new_name'
@@ -33,7 +33,6 @@ feature 'Setting' do
 
     expect(current_path).to eq(settings_path)
 
-    pending 'jsを使ったテスト'
     expect(page).to have_content('ユーザー情報を更新しました')
   end
 end
