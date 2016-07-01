@@ -1,6 +1,8 @@
-.page-header
+.page-header.userShowHeader
   .container
-    %h1 ユーザーの投稿一覧
+    %h1
+      = image_tag user_icon_url(@user), class: 'userIcon'
+      #{@user.name}
 
 .container
   = render 'users/tab', user: @user

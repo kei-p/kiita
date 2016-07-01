@@ -15,9 +15,21 @@
     margin-bottom: 5px;
   }
 
+
   .message {
+    margin-top: 5px;
     a {
       color: white;
+      &:hover { text-decoration: none; }
+    }
+
+    .userIcon {
+      width: 27px;
+      border-radius: 3px;
+    }
+
+    .userName {
+      &:hover { text-decoration: underline; }
     }
   }
 
@@ -104,6 +116,12 @@
 .itemCell {
   padding: 10px 0;
   border-bottom: 1px solid $divider-color;
+  margin-top: 0px;
+
+  .userIcon {
+    width: 50px;
+    border-radius: 4px;
+  }
 
   .message {
     font-size: 10px;

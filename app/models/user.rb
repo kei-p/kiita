@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
         user.provider = data["provider"]
         user.uid = data["uid"]
         user.name = data["info"]["name"]
+        user.icon_url = data["info"]["image"]
       end
     end
   end

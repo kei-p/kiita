@@ -1,12 +1,15 @@
-.itemCell
-  .message
-    - user = item.user
-    %span.user= link_to user.name, user
-    が#{item.created_at.to_date}に投稿しました
-    %span.stockCount ストック: #{item.stocks_count}
-  %h4.title
-    = link_to item.title, user_item_path(item.user, item)
-  %ul.tags.clearfix
-    - item.tags.each do |tag|
-      %li
-        %span.tag= link_to tag.name, tag
+- user = item.user
+.itemCell.media
+  .media-left.media-middle
+    = image_tag user_icon_url(user), class: 'media-object userIcon'
+  .media-body
+    .message
+      %span.user= link_to user.name, user
+      が#{item.created_at.to_date}に投稿しました
+      %span.stockCount ストック: #{item.stocks_count}
+    %h4.title
+      = link_to item.title, user_item_path(item.user, item)
+    %ul.tags.clearfix
+      - item.tags.each do |tag|
+        %li
+          %span.tag= link_to tag.name, tag

@@ -1,3 +1,4 @@
+- user = @item.user
 .page-header.itemShowHeader
   .container
     .row
@@ -9,8 +10,9 @@
             %li
               %span.tag= link_to tag.name, tag
         .message
-          - user = @item.user
-          %span.user= link_to user.name, user
+          = link_to user do
+            = image_tag user_icon_url(user), class: 'userIcon'
+          %span.userName= link_to user.name, user
           = "が#{@item.created_at.to_date}に投稿しました"
         - if current_user == @item.user
           %ul.itemEditorMenus.clearfix
