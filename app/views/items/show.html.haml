@@ -1,20 +1,28 @@
 .page-header.itemShowHeader
   .container
     .row
-      %h1.title
-        = @item.title
-      %ul.tags.clearfix
-        - @item.tags.each do |tag|
-          %li
-            %span.tag= link_to tag.name, tag
-      .message
-        - user = @item.user
-        %span.user= link_to user.name, user
-        = "が#{@item.created_at.to_date}に投稿しました"
-      - if current_user == @item.user
-        %ul.itemEditorMenus.clearfix
-          %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-primary'
-          %li= link_to '削除', user_item_path(current_user, @item), method: :delete, class: 'btn btn-danger'
+      .col-sm-10
+        %h1.title
+          = @item.title
+        %ul.tags.clearfix
+          - @item.tags.each do |tag|
+            %li
+              %span.tag= link_to tag.name, tag
+        .message
+          - user = @item.user
+          %span.user= link_to user.name, user
+          = "が#{@item.created_at.to_date}に投稿しました"
+        - if current_user == @item.user
+          %ul.itemEditorMenus.clearfix
+            %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-primary'
+            %li= link_to '削除', user_item_path(current_user, @item), method: :delete, class: 'btn btn-danger'
+
+      .col-sm-2
+        .itemShowHeaderStock
+          %h5.stockCount= @item.stocks.count
+          %div.stockText ストック
+          - if current_user
+            = render 'items/stock_btn', item: @item, user: current_user
 
 .itemShowBody
   .container

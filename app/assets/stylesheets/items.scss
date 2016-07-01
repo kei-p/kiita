@@ -35,6 +35,25 @@
   }
 }
 
+.itemShowHeaderStock {
+  .stockCount {
+    text-align: center;
+    display: block;
+    font-size: 27px;
+    margin: 0;
+  }
+
+  .stockText {
+    text-align: center;
+    color: darken(white, 5%)
+  }
+
+  .stockBtn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
 .itemShowBody {
 }
 
@@ -91,6 +110,10 @@
 
     .user {
       font-weight: bold;
+    }
+
+    .stockCount {
+      float: right;
     }
   }
 

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:twitter]
 
   has_many :items
+  has_many :stocks
+  has_many :stock_items, through: :stocks, source: :item
 
   validates :name, presence: true
 
@@ -37,5 +39,17 @@ class User < ActiveRecord::Base
 
   def oauthorized?
     provider.present? && uid.present?
+  end
+
+  def stock(item)
+    stocks.create(item: item)
+  end
+
+  def stock?(item)
+    stock_items.include? item
+  end
+
+  def unstock(item)
+    stocks.find_by(item: item).destroy
   end
 end

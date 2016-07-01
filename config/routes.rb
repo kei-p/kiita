@@ -15,7 +15,12 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show] do
-    resources :items
+    resources :items do
+      member do
+        post 'stock'
+        delete 'unstock'
+      end
+    end
   end
 
   resources :tags, only: [:index, :show]

@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630143609) do
+ActiveRecord::Schema.define(version: 20160701123149) do
 
   create_table "items", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "title",      limit: 255
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "user_id",      limit: 4
+    t.string   "title",        limit: 255
+    t.text     "body",         limit: 65535
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "stocks_count", limit: 4,     default: 0
   end
 
   add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
@@ -32,6 +33,16 @@ ActiveRecord::Schema.define(version: 20160630143609) do
 
   add_index "items_tags", ["item_id"], name: "index_items_tags_on_item_id", using: :btree
   add_index "items_tags", ["tag_id"], name: "index_items_tags_on_tag_id", using: :btree
+
+  create_table "stocks", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "item_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "stocks", ["item_id"], name: "index_stocks_on_item_id", using: :btree
+  add_index "stocks", ["user_id"], name: "index_stocks_on_user_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -64,4 +75,6 @@ ActiveRecord::Schema.define(version: 20160630143609) do
   add_foreign_key "items", "users"
   add_foreign_key "items_tags", "items"
   add_foreign_key "items_tags", "tags"
+  add_foreign_key "stocks", "items"
+  add_foreign_key "stocks", "users"
 end

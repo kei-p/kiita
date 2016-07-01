@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :user
 
   has_and_belongs_to_many :tags
+  has_many :stocks
 
   validates :user, presence: true
   validates :title, presence: true
@@ -24,6 +25,10 @@ class Item < ActiveRecord::Base
     [@tmp_tags, tags].flatten.uniq.each do |tag|
       tag.update(items_count: tag.items.count)
     end
+  end
+
+  def update_stocks_count
+    update(stocks_count: stocks.count)
   end
 
   private

@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_user
-  before_action :authenticate_user!, except: [:show]
-  before_action :authorize, except: [:show]
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize, except: [:index, :show, :stock, :unstock]
+  before_action :set_item, except: [:index, :new, :create]
 
   def index
     @items = @user.items.includes(:tags).page(params[:page]).per(10)
@@ -39,6 +39,16 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     redirect_to user_items_path(current_user), notice: 'Item was successfully destroyed.'
+  end
+
+  def stock
+    current_user.stock(@item)
+    redirect_to [@user, @item]
+  end
+
+  def unstock
+    current_user.unstock(@item)
+    redirect_to [@user, @item]
   end
 
   private

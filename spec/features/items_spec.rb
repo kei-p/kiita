@@ -72,4 +72,28 @@ feature 'Items' do
 
     expect(current_path).to eq(user_items_path(user))
   end
+
+  scenario '記事をストックする' do
+    visit user_item_path(user, item)
+
+    expect do
+      click_on 'ストック'
+      item.reload
+    end.to change { item.stocks.count }.by(1)
+
+    expect(current_path).to eq(user_item_path(user, item))
+  end
+
+  scenario '記事のストックを解除する' do
+    user.stock(item)
+
+    visit user_item_path(user, item)
+
+    expect do
+      click_on 'ストック解除'
+      item.reload
+    end.to change { item.stocks.count }.by(-1)
+
+    expect(current_path).to eq(user_item_path(user, item))
+  end
 end
