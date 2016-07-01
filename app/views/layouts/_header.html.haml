@@ -13,6 +13,7 @@
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li= button_to "投稿する", new_user_item_path(current_user), class: 'navbar-btn btn btn-primary', method: :get
+          %li= link_to "ストック一覧", stock_top_path
           %li= link_to "マイページ", user_path(current_user)
           %li= link_to "設定", settings_path
           %li= link_to "ログアウト", destroy_user_session_path, method: :delete

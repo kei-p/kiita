@@ -1,0 +1,10 @@
+.page-header
+  .container
+    %h3 プログラミング知識を共有しよう
+
+.container
+  = render 'tab'
+
+  = render @items
+
+  = paginate @items

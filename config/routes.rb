@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get 'feed'
       get 'items'
+      get 'stock'
     end
   end
 
