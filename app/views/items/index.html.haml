@@ -1,8 +1,17 @@
 .page-header.userShowHeader
   .container
-    %h1
-      = image_tag user_icon_url(@user), class: 'userIcon'
-      #{@user.name}
+    .row
+      .col-sm-10
+        %h1
+          = image_tag user_icon_url(@user), class: 'userIcon'
+          #{@user.name}
+
+      .col-sm-2
+        .userShowHeaderFollow
+          %h5.followCount= @user.followers.count
+          %div.followText フォロワー
+          - if current_user
+            = render 'users/follow_btn', target_user: @user, user: current_user
 
 .container
   = render 'users/tab', user: @user

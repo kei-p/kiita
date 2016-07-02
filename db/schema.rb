@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701152001) do
+ActiveRecord::Schema.define(version: 20160702005540) do
+
+  create_table "followships", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "target_user_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "followships", ["target_user_id"], name: "index_followships_on_target_user_id", using: :btree
+  add_index "followships", ["user_id"], name: "index_followships_on_user_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
@@ -73,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160701152001) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "followships", "users"
   add_foreign_key "items", "users"
   add_foreign_key "items_tags", "items"
   add_foreign_key "items_tags", "tags"

@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   has_many :stocks
   has_many :stock_items, through: :stocks, source: :item
 
+  has_many :following_followships, class_name: 'Followship', foreign_key: :user_id
+  has_many :followings, through: :following_followships, source: :target_user
+
+  has_many :follower_followships, class_name: 'Followship', foreign_key: :target_user_id
+  has_many :followers, through: :follower_followships, source: :user
+
   validates :name, presence: true
 
   def self.find_or_initialize_by_oauth(oauth)
@@ -52,5 +58,22 @@ class User < ActiveRecord::Base
 
   def unstock(item)
     stocks.find_by(item: item).destroy
+  end
+
+  def follow(user)
+    following_followships.create(target_user: user)
+  end
+
+  def follow?(user)
+    followings.include?(user)
+  end
+
+  def unfollow(user)
+    following_followships.find_by(target_user: user).destroy
+  end
+
+  def feed
+    following_ids = followings.pluck(:id)
+    Item.all.where(user: following_ids)
   end
 end

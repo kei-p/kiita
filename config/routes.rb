@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show] do
+    member do
+      post 'follow'
+      delete 'unfollow'
+    end
+
     resources :items do
       member do
         post 'stock'

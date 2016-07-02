@@ -1,0 +1,6 @@
+- unless user.follow?(target_user)
+  = button_to 'フォロー', follow_user_path(target_user), method: :post, class: 'btn btn-primary followBtn'
+
+- else
+  = button_to 'フォロー解除', unfollow_user_path(target_user), method: :delete, class: 'btn btn-danger followBtn'
+

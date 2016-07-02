@@ -8,3 +8,21 @@
     border-radius: 6px;
   }
 }
+
+.userShowHeaderFollow {
+  .followCount {
+    text-align: center;
+    display: block;
+    font-size: 27px;
+    margin: 0;
+  }
+
+  .followText {
+    text-align: center;
+  }
+
+  .followBtn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

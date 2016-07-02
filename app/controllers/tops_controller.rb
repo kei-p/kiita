@@ -6,6 +6,7 @@ class TopsController < ApplicationController
   end
 
   def feed
+    @items = current_user.feed.includes(:user, :tags).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def items
