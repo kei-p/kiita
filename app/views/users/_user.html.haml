@@ -1,0 +1,10 @@
+.userCell.media
+  .media-left.media-middle
+    = link_to user do
+      = image_tag user_icon_url(user), class: 'media-object userIcon'
+  .media-body
+    .media-heading.userName= link_to user.name, user
+    = simple_format h(user.profile), class: 'userProfile'
+  .media-right.media-middle
+    - if current_user && current_user == user
+      = render 'users/follow_btn', target_user: user, user: current_user

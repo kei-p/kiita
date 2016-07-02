@@ -3,7 +3,6 @@
 .container
   = render 'users/tab', user: @user
 
-  - @items.each do |item|
-    = render item
+  = render @users
 
-  = paginate @items
+  = paginate @users

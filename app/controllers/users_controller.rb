@@ -6,14 +6,18 @@ class UsersController < ApplicationController
     redirect_to user_items_path(@user)
   end
 
+  def followers
+    @users = @user.followers.page(params[:page]).per(10)
+  end
+
   def follow
     current_user.follow(@user)
-    redirect_to user_path(@user)
+    redirect_to :back
   end
 
   def unfollow
     current_user.unfollow(@user)
-    redirect_to user_path(@user)
+    redirect_to :back
   end
 
   private

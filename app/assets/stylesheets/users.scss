@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'colors';
+
 .userShowHeader {
   .userIcon {
     width: 80px;
@@ -24,5 +26,25 @@
   .followBtn {
     width: 100%;
     margin-top: 10px;
+  }
+}
+
+.userCell {
+  padding: 10px 0;
+  border-bottom: 1px solid $divider-color;
+  margin-top: 0px;
+
+  .userIcon {
+    width: 50px;
+    border-radius: 4px;
+  }
+
+  .userName {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .userProfile {
+    margin: 0;
   }
 }
