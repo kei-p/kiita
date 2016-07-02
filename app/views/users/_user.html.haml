@@ -6,5 +6,5 @@
     .media-heading.userName= link_to user.name, user
     = simple_format h(user.profile), class: 'userProfile'
   .media-right.media-middle
-    - if current_user && current_user == user
+    - if current_user && current_user != user
       = render 'users/follow_btn', target_user: user, user: current_user
