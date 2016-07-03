@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
 
   def index
-    @items = @user.items.includes(:tags).page(params[:page]).per(10)
+    @items = @user.items.includes(:tags).page(params[:page]).per(10).order(created_at: :desc)
   end
 
   def show
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
     @item = current_user.items.build(item_params)
 
     if @item.save
-      redirect_to [current_user, @item], notice: 'Item was successfully created.'
+      redirect_to [current_user, @item], notice: '記事を作成しました'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to [current_user, @item], notice: 'Item was successfully updated.'
+      redirect_to [current_user, @item], notice: '記事を更新しました'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to user_items_path(current_user), notice: 'Item was successfully destroyed.'
+    redirect_to user_items_path(current_user), notice: '記事を削除しました'
   end
 
   def stock

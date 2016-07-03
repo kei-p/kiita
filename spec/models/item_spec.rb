@@ -32,7 +32,7 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context 'タグを付け替える場合', focus: true do
+    context 'タグを付け替える場合' do
       before do
         item.tags_name_notation = 'a b c d e f'
         item.save!

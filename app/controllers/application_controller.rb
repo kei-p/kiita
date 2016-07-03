@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def unauthorized
-    message = 'Access denied.'
+    message = '権限がありません'
     redirect_to :back, alert: message
   rescue ActionController::RedirectBackError
     redirect_to top_path, alert: message
