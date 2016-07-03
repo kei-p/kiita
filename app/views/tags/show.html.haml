@@ -9,7 +9,6 @@
       現在#{@tag.items.count}件の投稿があります。
 
 .container
-  - @items.each do |item|
-    = render item
+  = render @items
 
   = paginate @items
