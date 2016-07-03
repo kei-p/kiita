@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @users = @user.followers.page(params[:page]).per(10)
+    @users = @user.followers.page(params[:page])
   end
 
   def follow

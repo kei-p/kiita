@@ -6,15 +6,16 @@ class TopsController < ApplicationController
   end
 
   def feed
-    @items = current_user.feed.includes(:user, :tags).order(created_at: :desc).page(params[:page]).per(10)
+    @items = current_user.feed.includes(:user, :tags).order(created_at: :desc).page(params[:page])
   end
 
   def items
-    @items = Item.all.includes(:user, :tags).order(created_at: :desc).page(params[:page]).per(10)
+    @items = Item.all.includes(:user, :tags).order(created_at: :desc).page(params[:page])
   end
 
   def stock
-    @items = current_user.stock_items.includes(:user, :tags).order('stocks.created_at DESC').page(params[:page]).per(10)
+    @items = current_user.stock_items.includes(:user, :tags).order('stocks.created_at DESC').page(params[:page])
+  end
 
   def mine
     @items = current_user.items.includes(:tags).order(created_at: :desc).page(params[:page])

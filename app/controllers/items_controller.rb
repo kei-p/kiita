@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
 
   def index
-    @items = @user.items.includes(:tags).page(params[:page]).per(10).order(created_at: :desc)
+    @items = @user.items.includes(:tags).page(params[:page]).order(created_at: :desc)
   end
 
   def show
