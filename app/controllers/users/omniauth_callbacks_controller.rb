@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user = User.find_or_initialize_by_oauth(oauth)
       if @user.persisted?
         @user.update(icon_url: oauth.info.image)
-        sign_in_and_redirect @user, :event => :authentication
+        sign_in_and_redirect @user, event: :authentication
       else
         session["devise.twitter_data"] = oauth.except(:extra)
         redirect_to new_user_registration_url

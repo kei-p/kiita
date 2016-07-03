@@ -8,7 +8,7 @@ feature 'Signup' do
     fill_in 'Email', with: 'mail@example.com'
     fill_in 'Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'
-    expect { click_on 'Sign up' }.to change { User.count }.by(1)
+    expect { click_on '登録' }.to change { User.count }.by(1)
 
     expect(current_path).to eq(feed_top_path)
     u = User.last
@@ -26,7 +26,7 @@ feature 'Signup' do
     expect(page).not_to have_field('Password confirmation')
 
     fill_in 'Email', with: 'mail@example.com'
-    expect { click_on 'Sign up' }.to change { User.count }.by(1)
+    expect { click_on '登録' }.to change { User.count }.by(1)
 
     expect(current_path).to eq(feed_top_path)
     u = User.last

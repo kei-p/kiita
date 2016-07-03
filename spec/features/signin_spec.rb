@@ -12,7 +12,7 @@ feature 'Signin' do
     fill_in 'Email', with: 'mail@example.com'
     fill_in 'Password', with: 'password'
 
-    click_on 'Log in'
+    click_on 'ログイン'
 
     expect(current_path).to eq(feed_top_path)
   end
@@ -31,7 +31,7 @@ feature 'Signin' do
     fill_in 'Email', with: 'mail@example.com'
     fill_in 'Password', with: 'password'
 
-    click_on 'Log in'
+    click_on 'ログイン'
 
     expect(current_path).to eq(feed_top_path)
   end
