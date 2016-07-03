@@ -68,4 +68,20 @@ describe TopsController do
       end
     end
   end
+
+  describe 'GET #mine' do
+    before do
+      sign_in(user)
+
+      create(:item, user: user)
+    end
+
+    it do
+      get :mine
+      aggregate_failures do
+        expect(assigns[:items].map(&:id)).to eq(user.items.map(&:id))
+        expect(response).to render_template(:mine)
+      end
+    end
+  end
 end

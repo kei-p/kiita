@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'feed'
       get 'items'
       get 'stock'
+      get 'mine'
     end
   end
 

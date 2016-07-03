@@ -15,5 +15,8 @@ class TopsController < ApplicationController
 
   def stock
     @items = current_user.stock_items.includes(:user, :tags).order('stocks.created_at DESC').page(params[:page]).per(10)
+
+  def mine
+    @items = current_user.items.includes(:tags).order(created_at: :desc).page(params[:page])
   end
 end
