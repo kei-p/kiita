@@ -2,18 +2,19 @@
   .container
     %h1 設定
 
-.container
-  = simple_form_for(current_user, url: settings_path, method: :put) do |f|
-    = f.error_notification
+.page-body
+  .container
+    = simple_form_for(current_user, url: settings_path, method: :put) do |f|
+      = f.error_notification
 
-    .form-inputs
-      = f.input :name
-      = f.input :profile
+      .form-inputs
+        = f.input :name
+        = f.input :profile
 
-    .form-actions
-      = f.submit "更新", class: 'btn btn-primary'
+      .form-actions
+        = f.submit "更新", class: 'btn btn-primary'
 
-  - unless current_user.oauthorized?
-    = link_to "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
-  - else
-    %span.btn.btn-default{disabled: true} Twitterで連携済みです
+    - unless current_user.oauthorized?
+      = link_to "Twitterで連携", omniauth_authorize_path(:user, :twitter), class: 'btn btn-default'
+    - else
+      %span.btn.btn-default{disabled: true} Twitterで連携済みです

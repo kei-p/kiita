@@ -5,7 +5,8 @@
     %div
       Kiitaに登録されているタグの一覧です。
 
-.container
-  = render @tags
+.page-body
+  .container
+    = render @tags
 
-  = paginate @tags
+    = paginate @tags

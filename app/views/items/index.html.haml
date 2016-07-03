@@ -1,8 +1,9 @@
 = render 'users/header', user: @user, current_user: current_user
 
-.container
-  = render 'users/tab', user: @user
+.page-body
+  .container
+    = render 'users/tab', user: @user
 
-  = render @items
+    = render @items
 
-  = paginate @items
+    = paginate @items

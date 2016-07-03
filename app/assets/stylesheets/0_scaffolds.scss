@@ -1,4 +1,4 @@
-@import 'colors';
+@import 'commons';
 
 body {
   background-color: #fff;
@@ -69,3 +69,8 @@ a {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.page-body {
+  padding-bottom: 20px;
+}
+

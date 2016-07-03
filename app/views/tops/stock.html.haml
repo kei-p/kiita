@@ -1,8 +1,9 @@
 = render 'header'
 
-.container
-  = render 'tab'
+.page-body
+  .container
+    = render 'tab'
 
-  = render @items
+    = render @items
 
-  = paginate @items
+    = paginate @items

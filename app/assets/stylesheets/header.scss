@@ -1,7 +1,17 @@
-@import 'colors';
+@import 'commons';
 
 .navbar-nav {
-  .navbar-btn {
-    margin-left: 15px;
+  .userIcon {
+    width: 18px;
+    border-radius: 2px;
   }
+}
+
+.navbar-brand {
+  font-family: 'Poiret One', cursive;
+  font-weight: bold;
+}
+
+.navbar-btn {
+  margin-left: 15px;
 }

@@ -8,7 +8,8 @@
       #{@tag.name}に関する情報が集まっています。
       現在#{@tag.items.count}件の投稿があります。
 
-.container
-  = render @items
+.page-body
+  .container
+    = render @items
 
-  = paginate @items
+    = paginate @items

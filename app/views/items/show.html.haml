@@ -2,7 +2,7 @@
 .page-header.itemShowHeader
   .container
     .row
-      .col-sm-10
+      .col-sm-9
         %h1.title
           = @item.title
         %ul.tags.clearfix
@@ -16,17 +16,17 @@
           = "が#{@item.created_at.to_date}に投稿しました"
         - if current_user == @item.user
           %ul.itemEditorMenus.clearfix
-            %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-primary'
+            %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-default'
             %li= link_to '削除', user_item_path(current_user, @item), method: :delete, class: 'btn btn-danger'
 
-      .col-sm-2
+      .col-sm-3
         .itemShowHeaderStock
           %h5.stockCount= @item.stocks.count
           %div.stockText ストック
           - if current_user
             = render 'items/stock_btn', item: @item, user: current_user
 
-.itemShowBody
-  .container
+.page-body.itemShowBody
+  .container.markdown-body
     = markdown(@item.body)
 

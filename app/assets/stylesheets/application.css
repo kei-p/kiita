@@ -1,8 +1,11 @@
 /*
  *= require custom-bootstrap
  *= require toastr_rails
+ *= require github-markdown
  *= require_tree .
  *= require_self
 */
 
-
+#toast-container{
+  top: initial;
+}
