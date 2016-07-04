@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.3'
 
 gem 'rails', '4.2.5.1'
 gem 'mysql2', '>= 0.3.13', '< 0.5'
@@ -27,6 +28,10 @@ gem 'omniauth-twitter'
 gem 'settingslogic'
 
 gem 'redcarpet'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'pry-byebug'
