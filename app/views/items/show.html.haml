@@ -13,7 +13,7 @@
           = link_to user do
             = image_tag user_icon_url(user), class: 'userIcon'
           %span.userName= link_to user.name, user
-          = "が#{@item.created_at.to_date}に投稿しました"
+          = "が#{@item.published_at.to_date}に投稿しました"
         - if current_user == @item.user
           %ul.itemEditorMenus.clearfix
             %li= link_to '投稿を編集', edit_user_item_path(current_user, @item), class: 'btn btn-default'

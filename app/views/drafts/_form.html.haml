@@ -1,0 +1,13 @@
+.itemEditBody
+  - path, method =  @draft.new_record? ? [user_drafts_path(current_user), :post] : [user_draft_path(current_user, @draft), :put]
+  = simple_form_for(@draft, url: path, method: method) do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :title
+      = f.input :tags_name_notation, label: 'Tags'
+      = f.input :body, input_html: { rows: 15 }
+      = f.input :publish, as: :boolean
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-primary'

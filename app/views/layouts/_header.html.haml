@@ -12,7 +12,8 @@
     #headerCollapseMenu.navbar-collapse.collapse{'aria-expanded' => false}
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-          %li= button_to "投稿する", new_user_item_path(current_user), class: 'navbar-btn btn btn-primary', method: :get
+          %li= button_to "投稿する", new_user_draft_path(current_user), class: 'navbar-btn btn btn-primary', method: :get
+          %li= link_to "下書き一覧", user_drafts_path(current_user)
           %li= link_to "ストック一覧", stock_top_path
           %li.dropdown
             %a.dropdown-toggle{'data-toggle' => 'dropdown'}

@@ -1,0 +1,24 @@
+- user = @draft.user
+.page-header.itemShowHeader.itemShowHeader--draft
+  .container
+    .row
+      %h1.title
+        = @draft.title
+      %ul.tags.clearfix
+        - @draft.tags.each do |tag|
+          %li
+            %span.tag= link_to tag.name, tag
+      .message
+        = link_to user do
+          = image_tag user_icon_url(user), class: 'userIcon'
+        %span.userName= link_to user.name, user
+        = "が#{@draft.created_at.to_date}に作成しました"
+      - if current_user == @draft.user
+        %ul.itemEditorMenus.clearfix
+          %li= link_to '下書きを編集', edit_user_draft_path(current_user, @draft), class: 'btn btn-default'
+          %li= link_to '削除', user_draft_path(current_user, @draft), method: :delete, class: 'btn btn-danger'
+
+.page-body.itemShowBody
+  .container.markdown-body
+    = markdown(@draft.body)
+

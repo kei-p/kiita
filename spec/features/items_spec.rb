@@ -27,10 +27,12 @@ feature 'Items' do
     expect(item.tags.count).to eq(3)
   end
 
-  given(:item) { create(:item, user: user, title: 'Title', body: '#Body', tags_name_notation: 'A B C') }
+  given(:item) { create(:item, user: user, title: 'Title', body: '#Body', tags_name_notation: 'A B C', created_at: Time.zone.now.yesterday) }
 
   scenario '記事を閲覧する' do
     visit user_item_path(user, item)
+
+    expect(page).to have_content("#{item.published_at.to_date}に投稿しました")
 
     expect(page).to have_xpath('//h1', text: 'Body')
     expect(page).to have_link('投稿を編集', href: edit_user_item_path(user, item))

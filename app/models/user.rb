@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
+  has_many :draft_items, -> { draft }, class_name: Item
+  has_many :published_items, -> { published }, class_name: Item
+
   def self.find_or_initialize_by_oauth(oauth)
     find_or_initialize_by(
       provider: oauth.provider,
@@ -74,6 +77,6 @@ class User < ActiveRecord::Base
 
   def feed
     following_ids = followings.pluck(:id)
-    Item.all.where(user: following_ids)
+    Item.all.published.where(user: following_ids)
   end
 end

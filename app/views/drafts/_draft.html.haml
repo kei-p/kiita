@@ -1,0 +1,10 @@
+.itemCell.media
+  .media-body
+    .message
+      #{draft.created_at.to_date}に投稿しました
+    %h4.title
+      = link_to draft.title, user_draft_path(draft.user, draft)
+    %ul.tags.clearfix
+      - draft.tags.each do |tag|
+        %li
+          %span.tag= link_to tag.name, tag

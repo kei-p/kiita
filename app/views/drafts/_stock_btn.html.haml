@@ -1,0 +1,6 @@
+- unless user.stock?(item)
+  = button_to 'ストック', stock_user_item_path(item.user, item), method: :post, class: 'btn btn-default stockBtn'
+
+- else
+  = button_to 'ストック解除', unstock_user_item_path(item.user, item), method: :delete, class: 'btn btn-danger stockBtn'
+

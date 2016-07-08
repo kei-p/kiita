@@ -10,7 +10,7 @@ class TopsController < ApplicationController
   end
 
   def items
-    @items = Item.all.includes(:user, :tags).order(created_at: :desc).page(params[:page])
+    @items = Item.all.published.includes(:user, :tags).order(published_at: :desc).page(params[:page])
   end
 
   def stock
@@ -18,6 +18,6 @@ class TopsController < ApplicationController
   end
 
   def mine
-    @items = current_user.items.includes(:tags).order(created_at: :desc).page(params[:page])
+    @items = current_user.published_items.includes(:user, :tags).order(published_at: :desc).page(params[:page])
   end
 end

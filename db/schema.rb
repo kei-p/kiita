@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702071012) do
+ActiveRecord::Schema.define(version: 20160708095423) do
 
   create_table "followships", force: :cascade do |t|
     t.integer  "user_id",        limit: 4
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160702071012) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "stocks_count", limit: 4,     default: 0
+    t.datetime "published_at"
   end
 
   add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree

@@ -1,8 +1,8 @@
 FactoryGirl.define do
-  factory :draft, class: Item do
+  factory :item do
     user nil
     title "MyString"
     body "MyText"
-    published_at nil
+    published_at { Time.zone.now }
   end
 end

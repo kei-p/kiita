@@ -13,7 +13,7 @@ describe ItemsController do
     it do
       get :index, user_id: author.id
       aggregate_failures do
-        expect(assigns[:items]).to eq(assigns[:items].reorder(created_at: :desc))
+        expect(assigns[:items]).to eq(assigns[:items].reorder(published_at: :desc))
         expect(response).to render_template(:index)
       end
     end

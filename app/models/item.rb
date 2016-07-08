@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessor :tags_name_notation
+  attr_accessor :tags_name_notation, :publish
   belongs_to :user
 
   has_and_belongs_to_many :tags
@@ -9,8 +9,24 @@ class Item < ActiveRecord::Base
   validates :title, presence: true
   validates :body, presence: true
 
+  scope :draft, -> { where(published_at: nil) }
+  scope :published, -> { where.not(published_at: nil) }
+
   def tags_name_notation
     @tags_name_notation || current_tags_name_notation
+  end
+
+  def true?(txt)
+    case txt
+    when "1", "true", true
+      true
+    else
+      false
+    end
+  end
+
+  before_save do
+    self.published_at = Time.zone.now if true?(publish) && !published?
   end
 
   after_save do
@@ -29,6 +45,10 @@ class Item < ActiveRecord::Base
 
   def update_stocks_count
     update(stocks_count: stocks.count)
+  end
+
+  def published?
+    published_at.present?
   end
 
   private

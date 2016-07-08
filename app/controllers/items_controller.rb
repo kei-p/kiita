@@ -2,10 +2,10 @@ class ItemsController < ApplicationController
   before_action :set_user
   before_action :authenticate_user!, except: [:index, :show]
   before_action :authorize, except: [:index, :show, :stock, :unstock]
-  before_action :set_item, except: [:index, :new, :create]
+  before_action :set_item, except: [:index]
 
   def index
-    @items = @user.items.includes(:tags).page(params[:page]).order(created_at: :desc)
+    @items = @user.published_items.includes(:tags, :users).page(params[:page]).order(published_at: :desc)
   end
 
   def show
@@ -62,7 +62,7 @@ class ItemsController < ApplicationController
   end
 
   def set_item
-    @item = @user.items.find(params[:id])
+    @item = @user.published_items.find(params[:id])
   end
 
   def item_params

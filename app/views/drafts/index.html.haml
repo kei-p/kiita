@@ -1,0 +1,9 @@
+.page-header
+  .container
+    %h1 下書き一覧
+
+.page-body
+  .container
+    = render partial: 'drafts/draft', collection: @drafts, as: :draft
+
+    = paginate @drafts
