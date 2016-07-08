@@ -3,7 +3,7 @@ class DraftsController < ApplicationController
   before_action :set_draft, except: [:index, :new, :create]
 
   def index
-    @drafts = current_user.draft_items.includes(:tags, :user).page(params[:page]).order(created_at: :desc)
+    @drafts = current_user.draft_items.includes(:tags).page(params[:page]).order(created_at: :desc)
   end
 
   def show
