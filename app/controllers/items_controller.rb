@@ -5,27 +5,13 @@ class ItemsController < ApplicationController
   before_action :set_item, except: [:index]
 
   def index
-    @items = @user.published_items.includes(:tags, :users).page(params[:page]).order(published_at: :desc)
+    @items = @user.published_items.includes(:tags, :user).page(params[:page]).order(published_at: :desc)
   end
 
   def show
   end
 
-  def new
-    @item = current_user.items.build
-  end
-
   def edit
-  end
-
-  def create
-    @item = current_user.items.build(item_params)
-
-    if @item.save
-      redirect_to [current_user, @item], notice: '記事を作成しました'
-    else
-      render :new
-    end
   end
 
   def update

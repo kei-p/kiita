@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       delete 'unfollow'
     end
 
-    resources :items do
+    resources :items, except: [:new, :create] do
       member do
         post 'stock'
         delete 'unstock'

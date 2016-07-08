@@ -29,22 +29,6 @@ describe ItemsController do
     end
   end
 
-  describe 'GET #new' do
-    before do
-      sign_in(user)
-    end
-
-    it do
-      get :new, user_id: author.id
-
-      aggregate_failures do
-        expect(assigns[:item]).not_to be_nil
-        expect(assigns[:item].user).to eq(author)
-        expect(response).to render_template(:new)
-      end
-    end
-  end
-
   describe 'GET #edit' do
     before do
       sign_in(user)
@@ -56,55 +40,6 @@ describe ItemsController do
       aggregate_failures do
         expect(assigns[:item]).to eq(item)
         expect(response).to render_template(:edit)
-      end
-    end
-  end
-
-  describe 'POST #create' do
-    before do
-      sign_in(user)
-    end
-
-    subject do
-      post :create, user_id: author.id, item: item_params
-    end
-
-    let(:item_params) do
-      { title: 'Title', body: 'Body', tags_name_notation: 'A B C'}
-    end
-
-    context '自分の記事を投稿' do
-      let(:user) { author }
-
-      it do
-        expect do
-          subject
-        end.to change { Item.count }.by(1)
-
-        aggregate_failures do
-          item = Item.last
-          expect(item.title).to eq('Title')
-          expect(item.body).to eq('Body')
-          expect(item.tags.count).to eq(3)
-
-          expect(response).to redirect_to(user_item_path(author, item))
-          expect(flash[:notice]).to eq('記事を作成しました')
-        end
-      end
-    end
-
-    context '他人の記事を投稿' do
-      let(:user) { create(:user, :registered) }
-
-      it do
-        expect do
-          subject
-        end.not_to change { Item.count }
-
-        aggregate_failures do
-          expect(response).to redirect_to(top_path)
-          expect(flash[:alert]).to eq('権限がありません')
-        end
       end
     end
   end

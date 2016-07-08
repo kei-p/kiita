@@ -8,7 +8,32 @@ feature 'Items' do
   end
 
   scenario '記事を投稿する' do
-    visit new_user_item_path(user)
+    visit top_path
+
+    click_on '投稿する'
+
+    within('#new_item') do
+      fill_in 'Title', with: 'Title'
+      fill_in 'Tags', with: 'A B C'
+      fill_in 'Body', with: 'Body'
+      check 'Publish'
+
+      expect { click_on '投稿する' }.to change { Item.count }.by(1)
+    end
+
+    item = Item.last
+    expect(current_path).to eq(user_item_path(user, item))
+
+    expect(item.user).to eq(user)
+    expect(item.title).to eq('Title')
+    expect(item.body).to eq('Body')
+    expect(item.tags.count).to eq(3)
+  end
+
+  scenario '下書きを投稿する' do
+    visit top_path
+
+    click_on '投稿する'
 
     within('#new_item') do
       fill_in 'Title', with: 'Title'
@@ -19,7 +44,7 @@ feature 'Items' do
     end
 
     item = Item.last
-    expect(current_path).to eq(user_item_path(user, item))
+    expect(current_path).to eq(user_draft_path(user, item))
 
     expect(item.user).to eq(user)
     expect(item.title).to eq('Title')
