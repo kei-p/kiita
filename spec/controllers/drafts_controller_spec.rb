@@ -12,7 +12,7 @@ describe DraftsController, focus: true do
     end
 
     it do
-      get :index, user_id: author.id
+      get :index
       aggregate_failures do
         expect(assigns[:drafts]).to eq(assigns[:drafts].reorder(created_at: :desc))
         expect(response).to render_template(:index)
@@ -26,7 +26,7 @@ describe DraftsController, focus: true do
     end
 
     it do
-      get :show, user_id: author.id, id: draft.id
+      get :show, id: draft.id
       aggregate_failures do
         expect(assigns[:draft]).to eq(draft)
         expect(response).to render_template(:show)
@@ -40,7 +40,7 @@ describe DraftsController, focus: true do
     end
 
     it do
-      get :new, user_id: author.id
+      get :new
 
       aggregate_failures do
         expect(assigns[:draft]).not_to be_nil
@@ -56,7 +56,7 @@ describe DraftsController, focus: true do
     end
 
     it do
-      get :edit, user_id: author.id, id: draft.id
+      get :edit, id: draft.id
 
       aggregate_failures do
         expect(assigns[:draft]).to eq(draft)
@@ -71,7 +71,7 @@ describe DraftsController, focus: true do
     end
 
     subject do
-      post :create, user_id: author.id, item: draft_params
+      post :create, item: draft_params
     end
 
     let(:draft_params) do
@@ -93,7 +93,7 @@ describe DraftsController, focus: true do
           expect(draft.published?).to eq(false)
           expect(draft.tags.count).to eq(3)
 
-          expect(response).to redirect_to(user_draft_path(author, draft))
+          expect(response).to redirect_to(draft_path(draft))
           expect(flash[:notice]).to eq('下書きを作成しました')
         end
       end
@@ -122,21 +122,6 @@ describe DraftsController, focus: true do
         end
       end
     end
-
-    context '他人の下書きを投稿' do
-      let(:user) { create(:user, :registered) }
-
-      it do
-        expect do
-          subject
-        end.not_to change { Item.count }
-
-        aggregate_failures do
-          expect(response).to redirect_to(top_path)
-          expect(flash[:alert]).to eq('権限がありません')
-        end
-      end
-    end
   end
 
   describe 'PUT #update' do
@@ -145,7 +130,7 @@ describe DraftsController, focus: true do
     end
 
     subject do
-      put :update, user_id: author.id, id: draft.id, item: draft_params
+      put :update, id: draft.id, item: draft_params
       draft.reload
     end
 
@@ -163,7 +148,7 @@ describe DraftsController, focus: true do
                .and change { draft.tags.count }.to(4)
 
         aggregate_failures do
-          expect(response).to redirect_to(user_draft_path(author, draft))
+          expect(response).to redirect_to(draft_path(draft))
           expect(flash[:notice]).to eq('下書きを更新しました')
         end
       end
@@ -190,17 +175,12 @@ describe DraftsController, focus: true do
       end
     end
 
-    context '他人の下書きを投稿' do
+    context '他人の下書きを編集' do
       let(:user) { create(:user, :registered) }
       it do
         expect do
           subject
-        end.to_not change { draft }
-
-        aggregate_failures do
-          expect(response).to redirect_to(top_path)
-          expect(flash[:alert]).to eq('権限がありません')
-        end
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -212,7 +192,7 @@ describe DraftsController, focus: true do
     end
 
     subject do
-      delete :destroy, user_id: author.id, id: draft.id
+      delete :destroy, id: draft.id
     end
 
     context '自分の下書きを削除' do
@@ -223,23 +203,18 @@ describe DraftsController, focus: true do
         end.to change { Item.count }.by(-1)
 
         aggregate_failures do
-          expect(response).to redirect_to(user_drafts_path(author))
+          expect(response).to redirect_to(drafts_path)
           expect(flash[:notice]).to eq('下書きを削除しました')
         end
       end
     end
 
-    context '自分の下書きを削除' do
+    context '他人の下書きを削除' do
       let(:user) { create(:user, :registered) }
       it do
         expect do
           subject
-        end.not_to change { Item.count }
-
-        aggregate_failures do
-          expect(response).to redirect_to(top_path)
-          expect(flash[:alert]).to eq('権限がありません')
-        end
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

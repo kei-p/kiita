@@ -29,9 +29,9 @@ Rails.application.routes.draw do
         delete 'unstock'
       end
     end
-
-    resources :drafts
   end
+
+  resources :drafts
 
   resources :tags, only: [:index, :show]
 

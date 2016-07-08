@@ -15,8 +15,8 @@
         = "が#{@draft.created_at.to_date}に作成しました"
       - if current_user == @draft.user
         %ul.itemEditorMenus.clearfix
-          %li= link_to '下書きを編集', edit_user_draft_path(current_user, @draft), class: 'btn btn-default'
-          %li= link_to '削除', user_draft_path(current_user, @draft), method: :delete, class: 'btn btn-danger'
+          %li= link_to '下書きを編集', edit_draft_path(@draft), class: 'btn btn-default'
+          %li= link_to '削除', draft_path(@draft), method: :delete, class: 'btn btn-danger'
 
 .page-body.itemShowBody
   .container.markdown-body

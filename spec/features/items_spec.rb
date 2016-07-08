@@ -44,7 +44,7 @@ feature 'Items' do
     end
 
     item = Item.last
-    expect(current_path).to eq(user_draft_path(user, item))
+    expect(current_path).to eq(draft_path(item))
 
     expect(item.user).to eq(user)
     expect(item.title).to eq('Title')

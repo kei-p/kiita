@@ -1,5 +1,5 @@
 .itemEditBody
-  - path, method =  @draft.new_record? ? [user_drafts_path(current_user), :post] : [user_draft_path(current_user, @draft), :put]
+  - path, method =  @draft.new_record? ? [drafts_path, :post] : [draft_path(@draft), :put]
   = simple_form_for(@draft, url: path, method: method) do |f|
     = f.error_notification
 
