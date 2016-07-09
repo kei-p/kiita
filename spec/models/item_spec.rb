@@ -52,4 +52,95 @@ RSpec.describe Item, type: :model do
 
     it { expect(Item.find(item.id).tags_name_notation).to eq('a b c') }
   end
+
+  describe '#search' do
+    subject { Item.search(query) }
+    before do
+      create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tags_name_notation: 'tag_name')
+    end
+
+    context 'search title' do
+      let(:query) { "itle" }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search ti le' do
+      let(:query) { "it le" }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search user:user_name' do
+      let(:query) { "user:user_name" }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search tag:tag_name' do
+      let(:query) { "tag:tag_name" }
+      it { expect(subject.count).to eq(1) }
+    end
+  end
+
+  describe '#search_by_title' do
+    subject { Item.search_by_title(query) }
+    before do
+      create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title1', tags_name_notation: 'tag_name')
+      create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title2', tags_name_notation: 'tag_name')
+    end
+
+    context 'search title' do
+      let(:query) { %w(itle) }
+      it { expect(subject.count).to eq(2) }
+    end
+
+    context 'search ti le' do
+      let(:query) { %w(it le) }
+      it { expect(subject.count).to eq(2) }
+    end
+
+    context 'search ti le 1' do
+      let(:query) { %w(it le 1) }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search ti le 3' do
+      let(:query) { %w(it le 3) }
+      it { expect(subject.count).to eq(0) }
+    end
+  end
+
+  describe '#search_by_user' do
+    subject { Item.search_by_user(query) }
+    before do
+      create(:item, user: create(:user, :registered, name: 'user_name1'), title: 'Title1', tags_name_notation: 'tag_name')
+      create(:item, user: create(:user, :registered, name: 'user_name2'), title: 'Title2', tags_name_notation: 'tag_name')
+    end
+
+    context 'search user_name1' do
+      let(:query) { %w(user_name1) }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search user_name' do
+      let(:query) { %w(user_name) }
+      it { expect(subject.count).to eq(0) }
+    end
+  end
+
+  describe '#search_by_tag' do
+    subject { Item.search_by_tag(query) }
+    before do
+      create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title1', tags_name_notation: 'tag_name1')
+      create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title2', tags_name_notation: 'tag_name2')
+    end
+
+    context 'search tag_name1' do
+      let(:query) { %w(tag_name1) }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search tag_name' do
+      let(:query) { %w(tag_name) }
+      it { expect(subject.count).to eq(0) }
+    end
+  end
 end

@@ -12,13 +12,29 @@ class Item < ActiveRecord::Base
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where.not(published_at: nil) }
   scope :search, -> (query) {
-    if query.present?
-      published.where('title LIKE ?', "%#{query}%")
+    q = parse_query(query)
+    if q.values.any?(&:present?)
+      published.search_by_title(q[:title])
+               .search_by_user(q[:user])
+               .search_by_tag(q[:tag])
     else
       none
     end
   }
 
+  scope :search_by_title, -> (words) {
+    conditions = words.map { |w| "title LIKE \'%#{w}%\'" }.join(" AND ")
+    where(conditions)
+  }
+
+  scope :search_by_user, -> (user_names) {
+    user_names.empty? ? where(nil) : joins(:user).where(users: { name: user_names.first })
+  }
+
+  # TODO: 複数のタグ名での絞り込み
+  scope :search_by_tag, -> (tag_names) {
+    tag_names.empty? ? where(nil) : joins(:tags).where(tags: { name: tag_names.first })
+  }
 
   def tags_name_notation
     @tags_name_notation || current_tags_name_notation
@@ -63,5 +79,20 @@ class Item < ActiveRecord::Base
 
   def current_tags_name_notation
     tags.map(&:name).join(' ')
+  end
+
+  REGEXP_USER = /\Auser:/
+  REGEXP_TAG = /\Atag:/
+  def self.parse_query(q)
+    q.split(' ').each_with_object({ title: [] , user: [], tag: []}) do |w, h|
+      case w
+      when REGEXP_USER
+        h[:user] << w.sub(REGEXP_USER, '')
+      when REGEXP_TAG
+        h[:tag] << w.sub(REGEXP_TAG, '')
+      else
+        h[:title] << w
+      end
+    end
   end
 end
