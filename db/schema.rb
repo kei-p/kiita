@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708095423) do
+ActiveRecord::Schema.define(version: 20160709212256) do
 
   create_table "followships", force: :cascade do |t|
     t.integer  "user_id",        limit: 4
@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(version: 20160708095423) do
   add_index "followships", ["user_id"], name: "index_followships_on_user_id", using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "title",        limit: 255
-    t.text     "body",         limit: 65535
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "stocks_count", limit: 4,     default: 0
+    t.integer  "user_id",            limit: 4
+    t.string   "title",              limit: 255
+    t.text     "body",               limit: 65535
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "stocks_count",       limit: 4,     default: 0
     t.datetime "published_at"
+    t.string   "tags_name_notation", limit: 255
   end
 
   add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree

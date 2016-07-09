@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessor :tags_name_notation, :publish
+  attr_accessor :publish
   belongs_to :user
 
   has_and_belongs_to_many :tags
@@ -31,14 +31,10 @@ class Item < ActiveRecord::Base
     user_names.empty? ? where(nil) : joins(:user).where(users: { name: user_names.first })
   }
 
-  # TODO: 複数のタグ名での絞り込み
   scope :search_by_tag, -> (tag_names) {
-    tag_names.empty? ? where(nil) : joins(:tags).where(tags: { name: tag_names.first })
+    conditions = tag_names.map { |w| "tags_name_notation REGEXP \'(^|\s)#{w}(\s|$)\'" }.join(" AND ")
+    where(conditions)
   }
-
-  def tags_name_notation
-    @tags_name_notation || current_tags_name_notation
-  end
 
   def true?(txt)
     case txt
@@ -54,7 +50,7 @@ class Item < ActiveRecord::Base
   end
 
   after_save do
-    unless tags_name_notation == current_tags_name_notation
+    if tags_name_notation_changed?
       @tmp_tags = tags.to_a
       self.tags = Tag.find_or_initialize_by_name_notation(tags_name_notation)
       update_tags_items_count
@@ -75,11 +71,11 @@ class Item < ActiveRecord::Base
     published_at.present?
   end
 
-  private
-
   def current_tags_name_notation
     tags.map(&:name).join(' ')
   end
+
+  private
 
   REGEXP_USER = /\Auser:/
   REGEXP_TAG = /\Atag:/
