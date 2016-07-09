@@ -11,12 +11,29 @@
 
 .page-body
   .container
-    - if @items.present?
-      = render @items
+    .row
+      .col-xs-9
+        - if @items.present?
+          = render @items
 
-      = paginate @items
-    - else
-      - if @search_params.blank?
-        検索クエリが設定されていません。
-      - else
-        「#{@search_params}」に一致する記事は見つかりませんでした。
+          = paginate @items
+        - else
+          - if @search_params.blank?
+            検索クエリが設定されていません。
+          - else
+            「#{@search_params}」に一致する記事は見つかりませんでした。
+      .col-xs-3
+        .panel.panel-default
+          .panel-heading
+            検索オプション
+          .panel-body
+            %ul.searchOptionList
+              :ruby
+                search_options = [
+                  ['「kiita」が作成した', 'user:kiita'],
+                  ['「Rails」タグが付いている', 'tag:Rails']
+                ]
+              - search_options.each do |message, example|
+                %li.searchOption
+                  %div.searchOptionMessage= message
+                  %span.searchOptionExmaple= example

@@ -1,3 +1,26 @@
+@import 'commons';
+
 .searchButton {
   width: 100%;
+}
+
+.searchOptionList {
+  list-style: none;
+  padding: 0;
+}
+
+.searchOption {
+  margin-top: 14px;
+  &:first-child { margin-top: 0px; }
+}
+
+.searchOptionMessage {
+
+}
+
+.searchOptionExmaple {
+  border: 1px solid $divider-color;
+  margin-top: 2px;
+  padding: 2px 4px;
+  display: inline-block;
 }
