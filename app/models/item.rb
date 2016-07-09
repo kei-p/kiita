@@ -11,6 +11,14 @@ class Item < ActiveRecord::Base
 
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where.not(published_at: nil) }
+  scope :search, -> (query) {
+    if query.present?
+      published.where('title LIKE ?', "%#{query}%")
+    else
+      none
+    end
+  }
+
 
   def tags_name_notation
     @tags_name_notation || current_tags_name_notation

@@ -10,6 +10,9 @@
         %span.icon-bar
 
     #headerCollapseMenu.navbar-collapse.collapse{'aria-expanded' => false}
+      = form_tag search_path,  class: "form navbar-form navbar-left", id: 'headerSearchForm', role: 'search', method: :get do |f|
+        .form-group
+          %input{ type: "text", class: "form-control", placeholder: "キーワードを入力", name: 'q'}
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li= button_to "投稿する", new_draft_path, class: 'navbar-btn btn btn-primary', method: :get

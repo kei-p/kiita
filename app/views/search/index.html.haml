@@ -1,0 +1,22 @@
+.page-header
+  .container
+    = form_tag search_path,  class: "form", id: 'searchForm', role: 'search', method: :get do |f|
+      .row
+        .col-xs-9
+          .form-group
+            %input{ type: "text", class: "form-control", placeholder: "キーワードを入力", name: 'q', value: @search_params}
+        .col-xs-3
+          .form-actions
+            %button{ type: 'submit', class: 'btn btn-primary searchButton' } 検索
+
+.page-body
+  .container
+    - if @items.present?
+      = render @items
+
+      = paginate @items
+    - else
+      - if @search_params.blank?
+        検索クエリが設定されていません。
+      - else
+        「#{@search_params}」に一致する記事は見つかりませんでした。
