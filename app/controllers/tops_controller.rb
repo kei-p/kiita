@@ -2,11 +2,15 @@ class TopsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    redirect_to feed_top_path
+    redirect_to feeds_top_path
   end
 
-  def feed
-    @items = current_user.feed.includes(:user, :tags).order(created_at: :desc).page(params[:page])
+  def feeds
+    @feeds = Feed.of_user(current_user, page: params[:page])
+    @contents = {}
+    @contents[:item] = Item.includes(:user, :tags).find(@feeds.select(&:content_item?).map(&:content_id))
+    @contents[:user] = User.find(@feeds.select(&:content_user?).map(&:content_id))
+    @followings = User.find(@feeds.map(&:following_user_id))
   end
 
   def items

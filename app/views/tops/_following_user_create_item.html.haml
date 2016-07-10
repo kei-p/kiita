@@ -1,0 +1,17 @@
+- user = content.user
+.feedCell.media
+  .feedMessage
+    = link_to user_path(following_user) do
+      = image_tag user_icon_url(following_user), class: 'media-object feedFollowingUserIcon'
+      .feedFollowingUserName= following_user.name
+    が投稿しました
+  .media-left.media-middle
+    = link_to user do
+      = image_tag user_icon_url(user), class: 'media-object userIcon'
+  .media-body
+    %h4.title
+      = link_to content.title, user_item_path(user, content)
+    %ul.tags.clearfix
+      - content.tags.each do |tag|
+        %li
+          %span.tag= link_to tag.name, tag

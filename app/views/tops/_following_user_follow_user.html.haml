@@ -1,0 +1,10 @@
+.feedCell.media
+  .feedMessage
+    = link_to user_path(following_user) do
+      = image_tag user_icon_url(following_user), class: 'media-object feedFollowingUserIcon'
+      .feedFollowingUserName= following_user.name
+    が
+    = link_to user_path(content) do
+      = image_tag user_icon_url(content), class: 'media-object feedFollowingUserIcon'
+      .feedFollowingUserName= content.name
+    をフォローしました

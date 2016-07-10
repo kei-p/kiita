@@ -74,9 +74,4 @@ class User < ActiveRecord::Base
   def unfollow(user)
     following_followships.find_by(target_user: user).destroy
   end
-
-  def feed
-    following_ids = followings.pluck(:id)
-    Item.all.published.where(user: following_ids)
-  end
 end

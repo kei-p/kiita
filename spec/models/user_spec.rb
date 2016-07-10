@@ -115,23 +115,4 @@ RSpec.describe User, type: :model do
              .and change { target_user.followers.count }.by(-1)
     end
   end
-
-  describe '#feed' do
-    before do
-      create(:item, user: follow_user)
-      create(:item, user: not_follow_user)
-
-      user.follow(follow_user)
-    end
-
-    let(:user) { create(:user, :registered) }
-    let(:follow_user) { create(:user, :registered) }
-    let(:not_follow_user) { create(:user, :registered) }
-
-    it do
-      feed = user.feed.map(&:id)
-      expect(feed).to include(*follow_user.items.map(&:id))
-      expect(feed).not_to include(*not_follow_user.items.map(&:id))
-    end
-  end
 end

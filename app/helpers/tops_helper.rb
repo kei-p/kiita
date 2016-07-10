@@ -1,7 +1,7 @@
 module TopsHelper
   def top_tab_items
     [
-      [ 'フィード', feed_top_path, nil ],
+      [ 'フィード', feeds_top_path, nil ],
       [ 'すべての投稿', items_top_path, nil ],
       [ '自分の投稿', mine_top_path, 'pull-right' ],
       [ 'ストック', stock_top_path, 'pull-right' ],

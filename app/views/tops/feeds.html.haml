@@ -1,0 +1,20 @@
+= render 'header'
+
+.page-body
+  .container
+    = render 'tab'
+
+    - @feeds.each do |feed|
+      - following_user = @followings.find { |u| feed.following_user_id == u.id }
+        :ruby
+          content = begin
+            if feed.content_item?
+              @contents[:item].find { |item| feed.content_id == item.id }
+            elsif feed.content_user?
+              @contents[:user].find { |user| feed.content_id == user.id }
+            else
+              nil
+          end
+      = render "#{feed.feed_type}", content: content, following_user: following_user
+
+    = paginate @feeds

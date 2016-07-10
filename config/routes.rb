@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'welcome', to: 'welcome#index'
   resource 'top', only: [:show] do
     member do
-      get 'feed'
+      get 'feeds'
       get 'items'
       get 'stock'
       get 'mine'
