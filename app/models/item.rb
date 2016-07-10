@@ -80,7 +80,7 @@ class Item < ActiveRecord::Base
   REGEXP_USER_WITH_QUOTATION = /user:["'](?<user_name>.*?)["'](\s|$)/
   REGEXP_USER = /user:(?<user_name>[^\s]*?)(\s|$)/
   REGEXP_TAG = /tag:(?<tag_name>[^\s]*?)(\s|$)/
-  REGEXP_WORD = /(?<word>[^\s]\+?)(\s|$)/
+  REGEXP_WORD = /(?<word>[^\s]+?)(\s|$)/
   REGEXP_BLANK = /\s+/
   def self.parse_query(q)
     s = StringScanner.new(q)
