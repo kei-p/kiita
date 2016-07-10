@@ -77,18 +77,29 @@ class Item < ActiveRecord::Base
 
   private
 
-  REGEXP_USER = /\Auser:/
-  REGEXP_TAG = /\Atag:/
+  REGEXP_USER_WITH_QUOTATION = /user:["'](?<user_name>.*?)["'](\s|$)/
+  REGEXP_USER = /user:(?<user_name>[^\s]*?)(\s|$)/
+  REGEXP_TAG = /tag:(?<tag_name>[^\s]*?)(\s|$)/
+  REGEXP_WORD = /(?<word>[^\s]\+?)(\s|$)/
+  REGEXP_BLANK = /\s+/
   def self.parse_query(q)
-    q.split(' ').each_with_object({ title: [] , user: [], tag: []}) do |w, h|
-      case w
-      when REGEXP_USER
-        h[:user] << w.sub(REGEXP_USER, '')
-      when REGEXP_TAG
-        h[:tag] << w.sub(REGEXP_TAG, '')
+    s = StringScanner.new(q)
+    result = { title: [] , user: [], tag: []}
+    until s.eos?
+      case
+      when s.scan(REGEXP_USER_WITH_QUOTATION)
+        result[:user] << s[:user_name]
+      when s.scan(REGEXP_USER)
+        result[:user] << s[:user_name]
+      when s.scan(REGEXP_TAG)
+        result[:tag]  << s[:tag_name]
+      when s.scan(REGEXP_WORD)
+        result[:title]  << s[:word]
+      when s.scan(REGEXP_BLANK)
       else
-        h[:title] << w
+        break
       end
     end
+    result
   end
 end

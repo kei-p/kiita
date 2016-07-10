@@ -53,7 +53,7 @@ RSpec.describe Item, type: :model do
     it { expect(Item.find(item.id).tags_name_notation).to eq('a b c') }
   end
 
-  describe '#search' do
+  describe '#search', focus: true do
     subject { Item.search(query) }
     before do
       create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tags_name_notation: 'tag_name')
@@ -71,6 +71,14 @@ RSpec.describe Item, type: :model do
 
     context 'search user:user_name' do
       let(:query) { "user:user_name" }
+      it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search user:"user name"' do
+      before do
+        create(:item, user: create(:user, :registered, name: 'user name'), title: 'Title', tags_name_notation: 'tag_name')
+      end
+      let(:query) { 'user:"user name"' }
       it { expect(subject.count).to eq(1) }
     end
 

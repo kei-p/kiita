@@ -7,6 +7,6 @@ class SearchController < ApplicationController
   private
 
   def search_params
-    params[:q]
+    params[:q].strip
   end
 end
