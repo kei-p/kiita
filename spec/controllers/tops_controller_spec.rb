@@ -11,12 +11,12 @@ describe TopsController do
     it do
       get :show
       aggregate_failures do
-        expect(response).to redirect_to(feed_top_path)
+        expect(response).to redirect_to(feeds_top_path)
       end
     end
   end
 
-  describe 'GET #feed' do
+  describe 'GET #feeds' do
     before do
       sign_in(user)
 
@@ -27,10 +27,10 @@ describe TopsController do
     end
 
     it do
-      get :feed
+      get :feeds
       aggregate_failures do
-        expect(assigns[:items].map(&:id)).to eq(user.feed.map(&:id))
-        expect(response).to render_template(:feed)
+        expect(assigns[:feeds]).not_to be_nil
+        expect(response).to render_template(:feeds)
       end
     end
   end

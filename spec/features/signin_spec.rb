@@ -14,7 +14,7 @@ feature 'Signin' do
 
     click_on 'ログイン'
 
-    expect(current_path).to eq(feed_top_path)
+    expect(current_path).to eq(feeds_top_path)
   end
 
   scenario 'ようこそ画面でtwitterを使ったログイン' do
@@ -22,7 +22,7 @@ feature 'Signin' do
 
     click_on 'Twitterで新規登録/ログイン'
 
-    expect(current_path).to eq(feed_top_path)
+    expect(current_path).to eq(feeds_top_path)
   end
 
   scenario '認証画面でパスワードを使ったログイン' do
@@ -33,7 +33,7 @@ feature 'Signin' do
 
     click_on 'ログイン'
 
-    expect(current_path).to eq(feed_top_path)
+    expect(current_path).to eq(feeds_top_path)
   end
 
   scenario '認証画面でtwitterを使ったログイン' do
@@ -41,6 +41,6 @@ feature 'Signin' do
 
     click_on 'Twitterで新規登録/ログイン'
 
-    expect(current_path).to eq(feed_top_path)
+    expect(current_path).to eq(feeds_top_path)
   end
 end
