@@ -23,6 +23,7 @@ class Item < ActiveRecord::Base
   }
 
   scope :search_by_title, -> (words) {
+    # 入力値をSQLにそのまま使うとSQLインジェクションの危険があるのでプレースホルダーを使うようにしたいです。
     conditions = words.map { |w| "title LIKE \'%#{w}%\'" }.join(" AND ")
     where(conditions)
   }
@@ -32,6 +33,7 @@ class Item < ActiveRecord::Base
   }
 
   scope :search_by_tag, -> (tag_names) {
+    # 入力値をSQLにそのまま使うとSQLインジェクションの危険があるのでプレースホルダーを使うようにしたいです。
     conditions = tag_names.map { |w| "tags_name_notation REGEXP \'(^|\s)#{w}(\s|$)\'" }.join(" AND ")
     where(conditions)
   }
@@ -58,6 +60,8 @@ class Item < ActiveRecord::Base
   end
 
   def update_tags_items_count
+    # Tagモデルでcounter_cache: trueを使えば、カウントを実装しなくてもいけそうな気がします。
+    # そもそもカウントカラム無しで都度カウントを見に行くというのも選択としてはありかもしれません（パフォーマンスとのトレードオフですが）
     [@tmp_tags, tags].flatten.uniq.each do |tag|
       tag.update(items_count: tag.items.count)
     end

@@ -1,10 +1,12 @@
+# 僕自身使ったことはないのですが https://github.com/chaps-io/public_activity を使えばすっきり書けそうな気もします。
+# 探せば他にも便利なgemありそうな感じがします
 class Feed
   attr_accessor :feed_type, :following_user_id, :content_id, :created_at, :content_type, :content
   FEED_TYPE_MAP = {
     following_user_create_item: :item,
     following_user_stock_item:  :item,
     following_user_follow_user: :user,
-  }
+  }.freeze # （細かいですが）定数はfreezeしていますね
 
   def initialize(following_user_id, feed_type, content_id, created_at)
     self.feed_type = feed_type.to_sym

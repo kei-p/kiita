@@ -116,6 +116,7 @@
 .itemCell {
   padding: 10px 0;
   border-bottom: 1px solid $divider-color;
+  //細かいですが、0の時はpx付けなくて良いかもです
   margin-top: 0px;
 
   .userIcon {

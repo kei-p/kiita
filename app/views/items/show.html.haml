@@ -22,6 +22,7 @@
       .col-sm-3
         .itemShowHeaderStock
           %h5.stockCount= @item.stocks.count
+          -# 細かいですが、%divであれば省略して、『.stockText ストック』でも同じ結果になります
           %div.stockText ストック
           - if current_user
             = render 'items/stock_btn', item: @item, user: current_user
