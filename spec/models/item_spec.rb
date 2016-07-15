@@ -32,6 +32,18 @@ RSpec.describe Item, type: :model do
       end
     end
 
+    context '下書きの場合' do
+      let(:item) { build(:draft, user: user) }
+
+      it do
+        expect { subject }.to change { Item.count }.by(1)
+                              .and change { Tag.count }.by(3)
+        expect(Tag.find_by(name: 'a').items_count).to eq(0)
+        expect(Tag.find_by(name: 'b').items_count).to eq(0)
+        expect(Tag.find_by(name: 'c').items_count).to eq(0)
+      end
+    end
+
     context 'タグを付け替える場合' do
       before do
         item.tags_name_notation = 'a b c d e f'

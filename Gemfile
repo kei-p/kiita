@@ -28,7 +28,7 @@ gem 'omniauth-twitter'
 gem 'settingslogic'
 
 gem 'redcarpet'
-gem 'counter_culture', '~> 0.1.33'
+gem 'counter_culture'
 
 group :production do
   gem 'rails_12factor'
