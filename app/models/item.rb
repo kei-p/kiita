@@ -2,7 +2,8 @@ class Item < ActiveRecord::Base
   attr_accessor :publish
   belongs_to :user
 
-  has_and_belongs_to_many :tags
+  has_many :items_tags
+  has_many :tags, through: :items_tags
   has_many :stocks
 
   validates :user, presence: true
@@ -52,23 +53,7 @@ class Item < ActiveRecord::Base
   end
 
   after_save do
-    if tags_name_notation_changed?
-      @tmp_tags = tags.to_a
-      self.tags = Tag.find_or_initialize_by_name_notation(tags_name_notation)
-      update_tags_items_count
-    end
-  end
-
-  def update_tags_items_count
-    # Tagモデルでcounter_cache: trueを使えば、カウントを実装しなくてもいけそうな気がします。
-    # そもそもカウントカラム無しで都度カウントを見に行くというのも選択としてはありかもしれません（パフォーマンスとのトレードオフですが）
-    [@tmp_tags, tags].flatten.uniq.each do |tag|
-      tag.update(items_count: tag.items.count)
-    end
-  end
-
-  def update_stocks_count
-    update(stocks_count: stocks.count)
+    update_tags if tags_name_notation_changed?
   end
 
   def published?
@@ -80,6 +65,19 @@ class Item < ActiveRecord::Base
   end
 
   private
+
+  def update_tags
+    old_tags = tags.to_a
+    new_tags = Tag.find_or_initialize_by_name_notation(tags_name_notation).to_a
+
+    (old_tags - new_tags).each do |tag|
+      items_tags.find_by(tag: tag).destroy
+    end
+
+    (new_tags - old_tags).each do |tag|
+      items_tags.create(tag: tag)
+    end
+  end
 
   REGEXP_USER_WITH_QUOTATION = /user:["'](?<user_name>.*?)["'](\s|$)/
   REGEXP_USER = /user:(?<user_name>[^\s]*?)(\s|$)/

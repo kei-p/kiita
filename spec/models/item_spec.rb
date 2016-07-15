@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   let(:user) { create(:user, :registered) }
 
-  describe '#after_save' do
+  describe '#after_save', clean: :truncation do
     subject do
       item.tags_name_notation = tags_name_notation
       item.save!
@@ -36,6 +36,7 @@ RSpec.describe Item, type: :model do
       before do
         item.tags_name_notation = 'a b c d e f'
         item.save!
+        item.reload
       end
 
       it do
