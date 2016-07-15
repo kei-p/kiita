@@ -4,13 +4,12 @@
   background-color: $primary-color;
   color: white;
   padding: 30px 0;
-  margin-top: 0px;
+  margin-top: 0;
 
   .title {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 5px;
   }
-
 
   .message {
     margin-top: 5px;
@@ -33,12 +32,12 @@
     margin-top: 10px;
     margin-bottom: 0;
     list-style: none;
-    padding: 0px;
+    padding: 0;
     li {
       float: left;
       margin-left: 5px;
 
-      &:first-child { margin-left: 0px; }
+      &:first-child { margin-left: 0; }
     }
   }
 }
@@ -71,14 +70,14 @@
 
 .tags {
   list-style: none;
-  padding: 0px;
+  padding: 0;
   margin: 0;
 
   li {
     float: left;
     margin-left: 3px;
 
-    &:first-child { margin-left: 0px; }
+    &:first-child { margin-left: 0; }
   }
 }
 
@@ -104,7 +103,7 @@
     border-color: transparent;
     border-right-color: #dfdfdf;
     border-width: 7px;
-    top: 0px;
+    top: 0;
   }
 
   a:hover, a:visited {
@@ -116,8 +115,7 @@
 .itemCell {
   padding: 10px 0;
   border-bottom: 1px solid $divider-color;
-  //細かいですが、0の時はpx付けなくて良いかもです
-  margin-top: 0px;
+  margin-top: 0;
 
   .userIcon {
     width: 50px;

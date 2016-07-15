@@ -9,5 +9,5 @@
       .col-sm-3
         .userShowHeaderFollow
           %h5.followCount= user.followers.count
-          %div.followText フォロワー
+          .followText フォロワー
           = render 'users/follow_btn', target_user: @user, user: current_user
