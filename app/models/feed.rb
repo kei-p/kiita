@@ -1,6 +1,7 @@
 # 僕自身使ったことはないのですが https://github.com/chaps-io/public_activity を使えばすっきり書けそうな気もします。
 # 探せば他にも便利なgemありそうな感じがします
 class Feed
+  extend ActiveRecord::Sanitization::ClassMethods
   attr_accessor :feed_type, :following_user_id, :content_id, :created_at, :content_type, :content
   FEED_TYPE_MAP = {
     following_user_create_item: :item,
@@ -62,45 +63,47 @@ class Feed
     )
   end
 
+  def self.connection
+    ActiveRecord::Base.connection
+  end
+
   private
 
   class << self
+
     def sql_following_user_create_item(user_ids)
-      user_ids_text = user_ids.empty? ? "''" :  user_ids.join(', ')
-      <<-SQL
+      sanitize_sql_array([<<-SQL, user_ids])
         SELECT
           'following_user_create_item' AS feed_type, items.id AS content_id, items.created_at AS created_at, items.user_id AS following_user_id
         FROM
           items
         WHERE
-          items.user_id IN (#{user_ids_text})
+          items.user_id IN (?)
           AND items.published_at IS NOT NULL
       SQL
     end
 
     def sql_following_user_stock_item(user_ids)
-      user_ids_text = user_ids.empty? ? "''" :  user_ids.join(', ')
-      <<-SQL
+      sanitize_sql_array([<<-SQL, user_ids])
         SELECT
           'following_user_stock_item' AS feed_type, items.id AS content_id, stocks.created_at AS created_at, stocks.user_id AS following_user_id
         FROM
           stocks
           INNER JOIN items ON items.id = stocks.item_id
         WHERE
-          stocks.user_id IN (#{user_ids_text})
+          stocks.user_id IN (?)
           AND items.published_at IS NOT NULL
       SQL
     end
 
     def sql_following_user_follow_user(user_ids)
-      user_ids_text = user_ids.empty? ? "''" :  user_ids.join(', ')
-      <<-SQL
+      sanitize_sql_array([<<-SQL, user_ids])
         SELECT
           'following_user_follow_user' AS feed_type, followships.target_user_id AS content_id, followships.created_at AS created_at, followships.user_id AS following_user_id
         FROM
           followships
         WHERE
-          followships.user_id IN (#{user_ids_text})
+          followships.user_id IN (?)
       SQL
     end
 
