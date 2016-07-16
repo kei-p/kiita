@@ -127,6 +127,11 @@ RSpec.describe Item, type: :model do
       let(:query) { %w(it le 3) }
       it { expect(subject.count).to eq(0) }
     end
+
+    context 'search \'sanitize' do
+      let(:query) { %w('sanitize) }
+      it { expect(subject.to_sql).to match(/\\'sanitize/) }
+    end
   end
 
   describe '#search_by_user' do
@@ -168,6 +173,11 @@ RSpec.describe Item, type: :model do
     context 'search tag_name1 tag_name2' do
       let(:query) { %w(tag_name1 tag_name2) }
       it { expect(subject.count).to eq(1) }
+    end
+
+    context 'search \'sanitize' do
+      let(:query) { %w('sanitize) }
+      it { expect(subject.to_sql).to match(/\\'sanitize/) }
     end
   end
 end

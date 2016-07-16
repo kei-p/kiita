@@ -24,8 +24,7 @@ class Item < ActiveRecord::Base
   }
 
   scope :search_by_title, -> (words) {
-    # 入力値をSQLにそのまま使うとSQLインジェクションの危険があるのでプレースホルダーを使うようにしたいです。
-    conditions = words.map { |w| "title LIKE \'%#{w}%\'" }.join(" AND ")
+    conditions = words.map { |w| sanitize_sql(["title LIKE ?", "%#{w}%"]) }.join(" AND ")
     where(conditions)
   }
 
@@ -34,8 +33,7 @@ class Item < ActiveRecord::Base
   }
 
   scope :search_by_tag, -> (tag_names) {
-    # 入力値をSQLにそのまま使うとSQLインジェクションの危険があるのでプレースホルダーを使うようにしたいです。
-    conditions = tag_names.map { |w| "tags_name_notation REGEXP \'(^|\s)#{w}(\s|$)\'" }.join(" AND ")
+    conditions = tag_names.map { |w| sanitize_sql(["tags_name_notation REGEXP ?", "(^|\s)#{w}(\s|$)"]) }.join(" AND ")
     where(conditions)
   }
 
