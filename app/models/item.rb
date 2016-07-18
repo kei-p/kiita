@@ -12,30 +12,6 @@ class Item < ActiveRecord::Base
 
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where.not(published_at: nil) }
-  scope :search, -> (query) {
-    q = parse_query(query)
-    if q.values.any?(&:present?)
-      published.search_by_title(q[:title])
-               .search_by_user(q[:user])
-               .search_by_tag(q[:tag])
-    else
-      none
-    end
-  }
-
-  scope :search_by_title, -> (words) {
-    conditions = words.map { |w| sanitize_sql(["title LIKE ?", "%#{w}%"]) }.join(" AND ")
-    where(conditions)
-  }
-
-  scope :search_by_user, -> (user_names) {
-    user_names.empty? ? where(nil) : joins(:user).where(users: { name: user_names.first })
-  }
-
-  scope :search_by_tag, -> (tag_names) {
-    conditions = tag_names.map { |w| sanitize_sql(["tags_name_notation REGEXP ?", "(^|\s)#{w}(\s|$)"]) }.join(" AND ")
-    where(conditions)
-  }
 
   def true?(txt)
     case txt
@@ -51,7 +27,7 @@ class Item < ActiveRecord::Base
   end
 
   after_save do
-    update_tags if tags_name_notation_changed?
+    update_tags
   end
 
   def published?
@@ -100,6 +76,10 @@ class Item < ActiveRecord::Base
         break
       end
     end
-    result
+    {
+      title_cont_all: result[:title],
+      tags_name_notation_cont_all: result[:tag],
+      user_name_eq: result[:user].first
+    }
   end
 end

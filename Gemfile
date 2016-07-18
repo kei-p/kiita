@@ -29,6 +29,7 @@ gem 'settingslogic'
 
 gem 'redcarpet'
 gem 'counter_culture'
+gem 'ransack'
 
 group :production do
   gem 'rails_12factor'

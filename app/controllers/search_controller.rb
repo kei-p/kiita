@@ -1,8 +1,13 @@
 class SearchController < ApplicationController
   def index
-    # あえてかもしれませんが、検索についてはransack gemを使えばモデルの中なども今よりすっきり書けそうです。
     @search_params = search_params
-    @items = Item.includes(:user, :tags).search(@search_params).page(params[:page]).order(published_at: :desc)
+    if @search_params.blank?
+      @items = Item.none
+    else
+      q = Item.parse_query(@search_params)
+      result = Item.search(q).result
+      @items = result.includes(:user, :tags).page(params[:page]).order(published_at: :desc)
+    end
   end
 
   private
