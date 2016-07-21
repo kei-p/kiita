@@ -75,7 +75,7 @@ describe DraftsController, focus: true do
     end
 
     let(:draft_params) do
-      { title: 'Title', body: 'Body', tags_name_notation: 'A B C'}
+      { title: 'Title', body: 'Body', tag_names: 'A B C'}
     end
 
     context '自分の下書きを投稿' do
@@ -102,7 +102,7 @@ describe DraftsController, focus: true do
     context '自分の下書きを公開' do
       let(:user) { author }
       let(:draft_params) do
-        { title: 'Title', body: 'Body', tags_name_notation: 'A B C', publish: "1"}
+        { title: 'Title', body: 'Body', tag_names: 'A B C', publish: "1"}
       end
 
       it do
@@ -135,7 +135,7 @@ describe DraftsController, focus: true do
     end
 
     let(:draft_params) do
-      { title: 'NewTitle', body: 'NewBody', tags_name_notation: 'A B C D'}
+      { title: 'NewTitle', body: 'NewBody', tag_names: 'A B C D'}
     end
 
     context '自分の下書きを編集' do
@@ -158,7 +158,7 @@ describe DraftsController, focus: true do
       let(:user) { author }
 
       let(:draft_params) do
-        { title: 'NewTitle', body: 'NewBody', tags_name_notation: 'A B C D', publish: "1" }
+        { title: 'NewTitle', body: 'NewBody', tag_names: 'A B C D', publish: "1" }
       end
 
       it do

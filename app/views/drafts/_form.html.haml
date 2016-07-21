@@ -5,7 +5,7 @@
 
     .form-inputs
       = f.input :title
-      = f.input :tags_name_notation, label: 'Tags'
+      = f.input :tag_names, label: 'Tags', input_html: { value: @draft.current_tag_names }
       = f.input :body, input_html: { rows: 15 }
       = f.input :publish, as: :boolean
 

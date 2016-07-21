@@ -52,7 +52,7 @@ feature 'Items' do
     expect(item.tags.count).to eq(3)
   end
 
-  given(:item) { create(:item, user: user, title: 'Title', body: '#Body', tags_name_notation: 'A B C', created_at: Time.zone.now.yesterday) }
+  given(:item) { create(:item, user: user, title: 'Title', body: '#Body', tag_names: 'A B C', created_at: Time.zone.now.yesterday) }
 
   scenario '記事を閲覧する' do
     visit user_item_path(user, item)

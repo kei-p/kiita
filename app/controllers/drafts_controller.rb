@@ -54,6 +54,6 @@ class DraftsController < ApplicationController
   end
 
   def draft_params
-    params.require(:item).permit(:title, :body, :tags_name_notation, :publish)
+    params.require(:item).permit(:title, :body, :tag_names, :publish)
   end
 end

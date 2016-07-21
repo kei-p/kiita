@@ -55,7 +55,7 @@ describe ItemsController do
     end
 
     let(:item_params) do
-      { title: 'NewTitle', body: 'NewBody', tags_name_notation: 'A B C D'}
+      { title: 'NewTitle', body: 'NewBody', tag_names: 'A B C D'}
     end
 
     context '自分の記事を編集' do

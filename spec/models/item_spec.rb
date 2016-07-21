@@ -5,12 +5,12 @@ RSpec.describe Item, type: :model do
 
   describe '#after_save', clean: :truncation do
     subject do
-      item.tags_name_notation = tags_name_notation
+      item.tag_names = tag_names
       item.save!
     end
 
     let(:item) { build(:item, user: user) }
-    let(:tags_name_notation) { 'a b c' }
+    let(:tag_names) { 'a b c' }
 
     it do
       expect { subject }.to change { Item.count }.by(1)
@@ -46,7 +46,7 @@ RSpec.describe Item, type: :model do
 
     context 'タグを付け替える場合' do
       before do
-        item.tags_name_notation = 'a b c d e f'
+        item.tag_names = 'a b c d e f'
         item.save!
         item.reload
       end
@@ -59,11 +59,12 @@ RSpec.describe Item, type: :model do
     end
   end
 
-  describe '#tags_name_notation' do
-    let!(:item) { create(:item, user: user, tags_name_notation: tags_name_notation) }
-    let(:tags_name_notation) { 'a b c' }
+  describe '#tag_names' do
+    let!(:item) { create(:item, user: user, tag_names: tag_names) }
+    let(:tag_names) { 'a b c' }
 
-    it { expect(Item.find(item.id).tags_name_notation).to eq("a b c") }
+    it { expect(Item.find(item.id).current_tag_names).to eq("a b c") }
+    it { expect(Item.find(item.id).tags_name_notation).to eq("'a' 'b' 'c'") }
   end
 
   describe '#search' do
@@ -73,8 +74,8 @@ RSpec.describe Item, type: :model do
         Item.search(q).result
       end
       before do
-        create(:item, user: create(:user, :registered, name: 'user_name1'), title: 'Title1', tags_name_notation: 'tag_name1')
-        create(:item, user: create(:user, :registered, name: 'user_name2'), title: 'Title2', tags_name_notation: 'tag_name2')
+        create(:item, user: create(:user, :registered, name: 'user_name1'), title: 'Title1', tag_names: 'tag_name1')
+        create(:item, user: create(:user, :registered, name: 'user_name2'), title: 'Title2', tag_names: 'tag_name2')
       end
 
       let(:query) { 'user:user_name1 tag:tag_name1 Ti tle 1' }
@@ -88,8 +89,8 @@ RSpec.describe Item, type: :model do
         Item.search(q).result
       end
       before do
-        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title1', tags_name_notation: 'tag_name')
-        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title2', tags_name_notation: 'tag_name')
+        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title1', tag_names: 'tag_name')
+        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title2', tag_names: 'tag_name')
       end
 
       context 'search title' do
@@ -124,8 +125,8 @@ RSpec.describe Item, type: :model do
         Item.search(q).result
       end
       before do
-        create(:item, user: create(:user, :registered, name: 'user_name1'), title: 'Title', tags_name_notation: 'tag_name')
-        create(:item, user: create(:user, :registered, name: 'user_name2'), title: 'Title', tags_name_notation: 'tag_name')
+        create(:item, user: create(:user, :registered, name: 'user_name1'), title: 'Title', tag_names: 'tag_name')
+        create(:item, user: create(:user, :registered, name: 'user_name2'), title: 'Title', tag_names: 'tag_name')
       end
 
       context 'search user_name1' do
@@ -145,9 +146,9 @@ RSpec.describe Item, type: :model do
         Item.search(q).result
       end
       before do
-        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tags_name_notation: 'tag_name1')
-        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tags_name_notation: 'tag_name2')
-        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tags_name_notation: 'tag_name1 tag_name2')
+        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tag_names: 'tag_name1')
+        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tag_names: 'tag_name2')
+        create(:item, user: create(:user, :registered, name: 'user_name'), title: 'Title', tag_names: 'tag_name1 tag_name2')
       end
 
       context 'search tag_name1' do
@@ -156,9 +157,6 @@ RSpec.describe Item, type: :model do
       end
 
       context 'search tag_name' do
-        before do
-          pending "tags_name_notation を enclose させる"
-        end
         let(:query) { %w(tag_name) }
         it { expect(subject.count).to eq(0) }
       end
